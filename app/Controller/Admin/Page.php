@@ -17,6 +17,10 @@ class Page {
             'label' => 'User',
             'link' => URL.'/user'
         ],
+        'relatorio'=> [
+            'label'=> 'Relatório',
+            'link'=> URL.'/relatorio'
+        ],
         'termosDeUso' => [
             'label' => 'Termos De Uso',
             'link'=> URL.'/regras'
@@ -67,6 +71,9 @@ class Page {
                     break;
                 case 'configuracao':
                     $iconClass = 'bx bx-cog';
+                    break;
+                case 'relatorio':
+                    $iconClass = 'bx bx-file';
                     break;
                 // Adicione mais casos para outros módulos conforme necessário
             }
