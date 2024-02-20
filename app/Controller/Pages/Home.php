@@ -5,10 +5,9 @@ namespace app\Controller\Pages;
 use \app\Utils\View;  
 use \app\Model\Entity\Laboratorio as EntityLaboratorio;
 use \app\Model\Entity\Computador as EntityComputador;
-use \app\Model\Entity\Laboratorio;
 
-class Menu extends Page {
-
+class Home extends Page {
+    
     /**
      * Metodo responsavel por obter a rendericacao dos itens de depoimento para a pagina
      * @param Resquest $request
@@ -57,19 +56,12 @@ class Menu extends Page {
                         // Situação inválida
                         break;
                 }
-
-                // Adicionar detalhes do computador ao HTML
-                $computadoresHTML .= View::render('Pages/computador/item', [
-                    'codcomputador' => $obComputador->codcomputador,
-                    'codsituacao_fk' => $obComputador->codsituacao_fk
-                ]);
             }
 
-            // Adicionar detalhes do laboratório e computadores ao HTML final
+            // Adicionar detalhes do laboratório e computadores ao HTML final (GERA OS CARDS)
             $itens .= View::render('Pages/laboratorio/item', [
                 'codlaboratorio' => $obLaboratorio->codlaboratorio,
                 'numerolaboratorio' => $obLaboratorio->numerolaboratorio,
-                'computadores' => $computadoresHTML,
                 'quantidade_disponiveis' => $disponiveis,
                 'quantidade_indisponiveis' => $indisponiveis,
                 'quantidade_em_manutencao' => $emManutencao,
@@ -81,18 +73,14 @@ class Menu extends Page {
         return $itens;
     }
 
-    /**
-     * Metodo responsavel por renderizar a view de listagem de depoimentos
-     * @param Request
-     * @return string
-     */
-    public static function getMenu($request){
+    public static function getHome($request){
         //CONTEUDO DA HOME
-        $content = View::render('Pages/menu',[
+        $content = View::render('Pages/modules/home/index',[
+            'nav' => parent::getNav($request),
             'itens' => self::getLaboratorioItems($request)
         ]);
 
         //RETONA A PAGINA COMPLETA
-        return parent::getPage('Menu', $content);
+        return parent::getPage('Home > Somos Devs', $content, 'home');
     }
 }

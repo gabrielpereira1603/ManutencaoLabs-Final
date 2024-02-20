@@ -53,6 +53,17 @@ class Computador {
      */
     public $numerolaboratorio;
 
+    public static function getInfoComputador($codcomputador) {
+        $where = "computador.codcomputador = $codcomputador";
+
+        $join = 
+        'INNER JOIN situacao ON computador.codsituacao_fk = situacao.codsituacao
+        INNER JOIN laboratorio ON computador.codlaboratorio_fk = laboratorio.codlaboratorio';
+        
+        // Chama o método select da classe Database, passando a cláusula de junção e a cláusula ORDER BY
+        return (new Database('computador'))->select($where, null, null, '*', $join)->fetchObject(self::class);
+    }
+
     /**
      * Metodo responsavel por retornar quantidade de computadores de cada lab
      * @param int $codlaboratorio

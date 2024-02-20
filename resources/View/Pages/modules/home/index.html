@@ -1,0 +1,31 @@
+{{nav}}
+<div class="title">
+    <h1 class="text-dark">Bem-Vindo</h1>
+    <p>Selecione abaixo o laboratório desejado</p>
+</div>
+
+<div class="classificacao mb-5">
+    <h3>Status dos computadores:</h3>
+    <div class="row">
+        <div class="col-4 col-sm-4 col-md-auto">
+            <span class="status-itens status-item-1 btn btn-warning">
+                <i class="bi bi-tools"></i> Manutenção
+            </span>
+        </div>
+        <div class="col-4 col-sm-4 col-md-auto">
+            <span class="status-itens status-item-2 btn btn-success">
+                <i class="bi bi-check-circle-fill"></i> Disponíveis
+            </span>
+        </div>
+        <div class="col-4 col-sm-4 col-md-auto">
+            <span class="status-itens status-item-3 btn btn-danger">
+                <i class="bi bi-exclamation-octagon-fill"></i> Indisponíveis
+            </span>
+        </div>
+    </div>
+</div>
+
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-4">
+    {{itens}}
+</div>

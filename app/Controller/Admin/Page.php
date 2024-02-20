@@ -94,7 +94,7 @@ class Page {
         ]);
     }
 
-        /**
+    /**
      * Metodo responsavel por renderizar a view do painel com conteudos dinamicos
      * @param string $titlre
      * @param string $content

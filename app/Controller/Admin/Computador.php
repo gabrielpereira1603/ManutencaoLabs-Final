@@ -77,7 +77,7 @@ class Computador extends Page{
         while ($obLaboratorio = $numeroLaboratorio->fetchObject(EntityComputador::class)) {
             $NumeroLaboratorio =  $obLaboratorio->numerolaboratorio;
             //CONTEUDO DA PAGINA DE RECLAMACAO
-            $content = View::render('admin/modules/inserirReclamacao/index', [
+            $content = View::render('admin/modules/computadoresManutencao/index', [
                 'nav' => parent::getNav($request),
                 'itens' => self::getComputadorItems($request, $codlaboratorio, $obPagination),
                 'pagination' => parent::getPagination($request, $obPagination),

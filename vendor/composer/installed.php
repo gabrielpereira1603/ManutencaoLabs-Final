@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'somosdevs/falconcrm',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '2e1458bcfe2c4633a51bbe0dad3e8d58c2a38662',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'somosdevs/falconcrm' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '2e1458bcfe2c4633a51bbe0dad3e8d58c2a38662',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -84,7 +84,7 @@ class Router {
         
         //PADRAO DE VALIDACAO DA URL
         $patternRoute = '/^'.str_replace('/','\/',$route).'$/';
-
+        
         //ADICIONA A ROTA DENTRO DA CLASSA
         $this->routes[$patternRoute][$method] = $params;
     }
@@ -219,6 +219,8 @@ class Router {
     public function getCurrentUrl() {
         return $this->url.$this->getUri();
     }
+    
+    
 
     /**
      * Metodo responsavel por redirecionar a URL

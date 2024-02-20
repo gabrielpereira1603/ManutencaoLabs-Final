@@ -27,3 +27,16 @@ View::init([
     'URL' => URL
 ]);
 
+//DEFINE O MAPEAMENTO DE MIDDLWARES
+MiddlewareQueue::setMap([
+    'manutencao' => \app\Http\Middleware\Manutencao::class,
+    'required-admin-logout' => \app\Http\Middleware\RequireAdminLogout::class,
+    'required-admin-login' => \app\Http\Middleware\RequireAdminLogin::class,
+    'required-user-login' => \app\Http\Middleware\RequireUserLogin::class,
+    'required-user-logout' => \app\Http\Middleware\RequireUserLogout::class,
+]);
+
+//DEFINE O MAPEAMENTO DE MIDDLWARES PADROES (EXECUTADOS EM TODAS AS ROTAS)
+MiddlewareQueue::setDefault([
+    'manutencao'
+]);

@@ -1,11 +1,15 @@
 <?php
 
-use \app\Http\Response;
-use \app\Controller\Pages;
+//INCLUI AS ROTAS DE HOME
+include __DIR__ .'/pages/home.php';
 
-//ROTA HOME
-$obRouter->get('/',[
-    function($request) {
-        return new Response(200,Pages\Menu::getMenu($request));
-    }
-]);
+//INCLUI AS ROTAS DE Reclamacao
+include __DIR__ .'/pages/computador.php';
+
+//INCLUI AS ROTAS DE Reclamacao
+include __DIR__ .'/pages/reclamacao.php';
+
+//INCLUI AS ROTAS DE Login
+include __DIR__ .'/pages/login.php';
+
+

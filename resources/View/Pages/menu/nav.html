@@ -1,0 +1,30 @@
+
+<div class="header_toggle">
+    <i class='bx bx-menu btn' id="header-toggle"></i> 
+    <h1 style="color: black; margin-left: 20px;">Sistema de Manutenções Integrado</h1>
+</div>
+
+<hr>
+<header class="" id="header">
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <div href="#" class="nav_logo">
+                    <img src="{{URL}}/resources/images/logoU-azul.ico" alt="" class="nav_logo-icon mt-5" style="width: 2.9rem;">
+                    <span class="nav_logo-name mt-5">Unifunec</span>
+                    <a href="#"><i class='bx bxs-edit mt-5'></i></a>
+                </div>
+
+                <hr style="margin-left: 20px;">
+                <div class="nav_list">
+                    {{links}}
+                </div>
+            </div>
+            
+            <a href="{{URL}}/logout" class="nav_link" id="logoutLink">
+                <i class='bx bx-log-out nav_icon'></i>
+                <span class="nav_name">SignOut</span>
+            </a> 
+        </nav>
+    </div>
+</header>
