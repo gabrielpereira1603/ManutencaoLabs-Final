@@ -5,9 +5,9 @@ use \app\Controller\Pages;
 
 //ROTA DE INSERIR RECLAMACAO (GET)
 $obRouter->get('/reclamacao/{codcomputador}',[
-    // 'middlewares' => [
-    //     'required-admin-login'
-    // ],
+    'middlewares' => [
+        'required-user-login'
+    ],
     function($request,$codcomputador) {
         return new Response(200,Pages\Reclamacao::getReclamacao($request,$codcomputador));
     }
@@ -15,9 +15,9 @@ $obRouter->get('/reclamacao/{codcomputador}',[
 
 //ROTA DE INSERIR RECLAMACAO (post)
 $obRouter->post('/reclamacao/{codcomputador}',[
-    // 'middlewares' => [
-    //     'required-admin-login'
-    // ],
+    'middlewares' => [
+        'required-user-login'
+    ],
     function($request,$codcomputador) {
         return new Response(200,Pages\Reclamacao::setReclamacao($request,$codcomputador));
     }

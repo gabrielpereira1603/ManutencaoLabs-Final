@@ -1,3 +1,15 @@
-<div class="alert alert-{{tipo}}" role="alert">
-    {{mensagem}}
+<div class="{{tipo}}" role="alert">
+    <p style="display: none;">{{mensagem}}</p> 
 </div>
+
+<script>
+    var mensagem = "{{mensagem}}"; 
+
+    if (mensagem && mensagem.trim() !== '') {
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: mensagem, 
+        });
+    }
+</script>

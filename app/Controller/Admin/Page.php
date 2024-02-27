@@ -15,7 +15,7 @@ class Page {
         ],
         'user' =>[
             'label' => 'User',
-            'link' => URL.'/user'
+            'link' => URL.'/admin/user'
         ],
         'relatorio'=> [
             'label'=> 'Relatório',

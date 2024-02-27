@@ -1,0 +1,110 @@
+
+.titulo {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.form-group {
+    margin: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+.novo-user {
+    width: 45%;
+    margin: 50px;
+    text-align: center;
+}
+
+.title-user {
+    margin-bottom: 70px;
+}
+
+.user-info {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+}
+
+.text-info legend,p{
+    color: black;
+    margin-top: 20px;
+}
+
+.form-select {
+    margin-bottom: 10px;
+}
+
+.btn-criar button {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+
+.input-container {
+    position: relative;
+}
+
+.visibility-btn {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+}
+
+.message-success {
+    color: green;
+    width: 100%;
+    background-color: rgba(0, 128, 0, 0.178);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    border: solid 1px rgba(0, 128, 0, 0.356);
+    opacity: 1;
+    transition: opacity 2s linear;
+}
+
+.message-error {
+    color: red;
+    width: 100%;
+    background-color: rgba(255, 0, 0, 0.178);
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    border: solid 1px rgba(255, 0, 0, 0.356);
+    opacity: 1;
+    transition: opacity 2s linear;
+}
+
+
+@media screen and (max-width: 720px) {
+    .form-group {
+        margin: 50px;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+    
+    .novo-user {
+        width: 80%;
+        margin: 50px;
+        text-align: center;
+    }
+    
+    .title-user {
+        margin-bottom: 40px;
+    }
+    
+    .user-info {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 50px;
+    }
+
+}

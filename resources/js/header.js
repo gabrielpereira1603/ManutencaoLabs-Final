@@ -59,3 +59,4 @@ logoutLink.addEventListener('click', function(event) {
         }
     });
 });
+

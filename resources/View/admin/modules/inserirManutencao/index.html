@@ -4,15 +4,15 @@
     <h1 class="text-dark">
         <span><span><i class='bx bx-desktop'></i> </span>Patrimônio: {{patrimonio}}</span>
     </h1>
-    <p>Status da reclamação: <span style="background-color: #f87171; padding: 2px; border-radius: 5px;">{{status}}</span></p>
+    <p>Status da reclamação: <span style="padding: 2px; border-radius: 5px;">{{status}} {{api}}</span></p>
 </div>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 mb-4">
             <div class="card">
+                <h5 class="card-header">Descrição da Reclamação:</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Descrição da Reclamação:</h5>
                     <p class="card-text">{{descricao}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -20,6 +20,7 @@
                     <li class="list-group-item"><strong>Data e Hora da Reclamação:</strong> {{dataHora}}</li>
                     <li class="list-group-item"><strong>Número do Laboratório:</strong> {{numerolaboratorio}}</li>
                     <li class="list-group-item"><strong>Patrimônio:</strong> {{patrimonio}}</li>
+                    <li class="list-group-item"><strong>Componentes Selecionados:</strong> {{componentes}}</li>
                     <!-- Adicione mais informações da reclamação conforme necessário -->
                 </ul>
                 <div class="card-body">
@@ -37,11 +38,12 @@
                 <h5 class="card-header">Finalizar Manutenção</h5>
                 <div class="card-body">
                     <!-- Formulário para finalizar a manutenção da reclamação -->
-                    <form action="{{URL}}/finalizar-manutencao" method="POST">
+                    <form method="post">
                         <!-- Adicione os campos do formulário conforme necessário -->
                         <div class="mb-3">
-                            <label for="motivo">Motivo da finalização:</label>
-                            <textarea class="form-control" id="motivo" name="motivo" rows="3"></textarea>
+                            <input type="hidden" name="codreclamacao" value="{{codreclamacao}}">
+                            <label for="motivo">Descrição da finalização:</label>
+                            <textarea class="form-control" id="motivo" name="descricao" rows="3"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Finalizar Manutenção</button>
                     </form>
@@ -53,10 +55,11 @@
             <div class="card">
                 <h5 class="card-header">Imagem Anexada</h5>
                 <div class="card-body">
-                    <img src="{{URL}}/resources/images/print-error" alt="Imagem Anexada" class="card-img-top img-fluid" style="object-fit: cover;">
+                    <!-- Adicione a classe img-fluid para tornar a imagem responsiva -->
+                    <img src="data:image/jpeg;base64,{{foto_base64}}" alt="Imagem da reclamação" class="img-fluid">
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 </div>
 

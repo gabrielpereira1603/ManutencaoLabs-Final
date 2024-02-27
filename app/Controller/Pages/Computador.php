@@ -18,6 +18,8 @@ class Computador extends Page{
         $icones = '';
         // Classe do ícone
         $status = '';
+        //CLASSE DO DISABLE
+        $disabled = '';
 
         // Quantidade total de registros
         $quantidadetotal = EntityComputador::getQuantidadeComputadores($codlaboratorio);
@@ -39,21 +41,23 @@ class Computador extends Page{
                 case 1:
                     $status = 'status-itens status-item-2 btn btn-success';
                     $icone = 'bi bi-check-circle-fill'; // Ícone de computador disponível
+                    $disabled = '';
                     break;
                 case 2:
-                    $status = 'status-itens status-item-1 btn btn-warning';
+                    $status = 'status-itens status-item-1 btn btn-danger';
                     $icone = 'bi bi-tools'; // Ícone de computador em manutenção
+                    $disabled = 'disabled';
                     break;
                 case 3:
-                    $status = 'status-itens status-item-3 btn btn-danger';
+                    $status = 'status-itens status-item-3 btn btn-warning';
                     $icone = 'bi bi-exclamation-octagon-fill'; // Ícone de computador indisponível
+                    $disabled = 'disabled';
                     break;
                 default:
                     $icone = ''; // Ícone padrão, caso não haja correspondência
                     break;
             }
-
- 
+            
             $itens .= View::render('Pages/computador/item', [
                 'codcomputador' => $obComputador->codcomputador,
                 'patrimonio' => $obComputador->patrimonio,
@@ -61,7 +65,8 @@ class Computador extends Page{
                 'laboratorio' => $obComputador->numerolaboratorio,
                 'situacao' => $obComputador->tiposituacao,
                 'icone' => $icone,
-                'status' => $status
+                'status' => $status,
+                'disabled' => $disabled
             ]);
         }
 
@@ -71,7 +76,7 @@ class Computador extends Page{
 
     /**
      * Metodo reponsavel por buscar os computadores 
-     */
+    */
     public static function getComputador($request,$codlaboratorio) {
         // Obtém as informações do laboratório
         $numeroLaboratorio = EntityLaboratorio::getNumeroLaboratorio($codlaboratorio);
@@ -85,7 +90,6 @@ class Computador extends Page{
                 'codlaboratorio' => $codlaboratorio,
                 'numerolaboratorio' => $NumeroLaboratorio,
             ]);
-            
             //RETORNA A PAGINA COMPLETA
             return parent::getPage('Computadores > Somos Devs',$content);
         }

@@ -90,7 +90,7 @@ class Database{
    * Método responsável por executar queries dentro do banco de dados
    * @param  string $query
    * @param  array  $params
-   * @return PDOStatement
+   * @return //PDOStatement
    */
   public function execute($query,$params = []){
     try{
@@ -150,17 +150,17 @@ class Database{
    * @param  array $values [ field => value ]
    * @return boolean
    */
-  public function update($where,$values){
-    //DADOS DA QUERY
+  public function update($where, $values){
+    // DADOS DA QUERY
     $fields = array_keys($values);
 
-    //MONTA A QUERY
-    $query = 'UPDATE '.$this->table.' SET '.implode('=?,',$fields).'=? WHERE '.$where;
+    // MONTA A QUERY
+    $query = 'UPDATE '.$this->table.' SET '.implode('=?, ', $fields).'=? WHERE '.$where;
 
-    //EXECUTAR A QUERY
-    $this->execute($query,array_values($values));
+    // EXECUTAR A QUERY
+    $this->execute($query, array_values($values));
 
-    //RETORNA SUCESSO
+    // RETORNA SUCESSO
     return true;
   }
 
@@ -179,5 +179,33 @@ class Database{
     //RETORNA SUCESSO
     return true;
   }
+
+  /**
+ * Método responsável por atualizar a situação de um computador
+ * @param int $codComputador O código do computador que será atualizado
+ * @param int $codSituacaoFK O novo código da situação do computador
+ * @return boolean
+ */
+public function updateComputerSituation($where, $values){
+    // MONTA A QUERY
+    $query = 'UPDATE computador SET codsituacao_fk = ? WHERE codcomputador = ?';
+
+    // EXECUTAR A QUERY
+    $this->execute($query, [$values, $where]);
+
+    // RETORNA SUCESSO
+    return true;
+}
+
+public function updateStatusReclamacao($where, $values){
+  // MONTA A QUERY
+  $query = 'UPDATE reclamacao SET status = ? WHERE codreclamacao = ?';
+
+  // EXECUTAR A QUERY
+  $this->execute($query, [$values, $where]);
+
+  // RETORNA SUCESSO
+  return true;
+}
 
 }

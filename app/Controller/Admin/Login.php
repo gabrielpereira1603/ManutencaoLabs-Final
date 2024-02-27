@@ -32,7 +32,6 @@ class Login extends Page {
      * @param Request
      */
     public static function setLogin($request){
-
         //POST VARS
         $postVars = $request->getPostVars();
         $login = $postVars['login'] ?? '';
@@ -45,6 +44,9 @@ class Login extends Page {
             return self::getLogin($request, 'Login ou Senha inválidos');
         }
 
+        if($obUser->codnivel_acesso == 1 || $obUser->codnivel_acesso == 4) {
+            return self::getLogin($request, 'Você não tem permissão para entrar!');
+        }
 
         //VERIFICA A SENHA DO USUARIO
         if(!password_verify($senha, $obUser->senha)) {

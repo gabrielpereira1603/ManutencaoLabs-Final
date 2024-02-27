@@ -12,6 +12,8 @@
                 <h5 class="card-header bg-secundary text-dark">Realizar reclamação</h5>
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="codlaboratorio" value="{{codlaboratorio}}">
+                        <input type="hidden" name="codcomputador" value="{{codcomputador}}">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label for="email" class="form-label">Endereço de e-mail (Opcional)</label>
@@ -30,7 +32,7 @@
                         </fieldset>
                         <div class="mb-3">
                             <label for="description" class="form-label">*Descrição da reclamação</label>
-                            <textarea class="form-control" name="descricao" id="description" rows="5" placeholder="Descreva sua reclamação"></textarea>
+                            <textarea class="form-control" name="descricao" id="description" rows="5" placeholder="Descreva sua reclamação" required></textarea>
                         </div>
                         <div class="d-flex justify-content-end mb-1">
                             <a href="{{URL}}/computador/{{codlaboratorio}}" class="btn btn-danger" style="margin-right: 5px;">

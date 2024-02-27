@@ -5,83 +5,115 @@ use \WilliamCosta\DatabaseManager\Database;
 
 class User {
 
-    /**
-     * ID do usuário
-     * @var integer
-     */
-    public $codusuario;
-
-     /**
-      * Login do usuário
-      * @var string
-      */
-    public $login;
+  /**
+   * ID do usuário
+   * @var integer
+   */
+  public $codusuario;
 
     /**
-     * Senha do usuário
-     * @var string
-     */
-    public $senha;
+    * Login do usuário
+    * @var string
+    */
+  public $login;
 
-    /**
-     * Nome do usuário
-     * @var string
-     */
-    public $nome_usuario;
+  /**
+   * Senha do usuário
+   * @var string
+   */
+  public $senha;
 
-    /**
-     * Email do usuário
-     * @var string
-     */
-    public $email_usuario;
+  /**
+   * Nome do usuário
+   * @var string
+   */
+  public $nome_usuario;
 
-    /**
-     * Token de redefinição de senha
-     * @var string
-     */
-    public $reset_token;
+  /**
+   * Email do usuário
+   * @var string
+   */
+  public $email_usuario;
 
-    /**
-     * Token de autenticação
-     * @var string
-     */
-    public $token;
+  /**
+   * Token de redefinição de senha
+   * @var string
+   */
+  public $reset_token;
 
-    /**
-     * Data de expiração do token de redefinição de senha
-     * @var string
-     */
-    public $reset_expires;
+  /**
+   * Token de autenticação
+   * @var string
+   */
+  public $token;
 
-    /**
-     * Nível de acesso do usuário
-     * @var integer
-     */
-    public $nivel_acesso_fk;
+  /**
+   * Data de expiração do token de redefinição de senha
+   * @var string
+   */
+  public $reset_expires;
 
-    /**
-     * Cod de acesso do usuário
-     * @var integer
-     */
-    public $codnivel_acesso;
+  /**
+   * Nível de acesso do usuário
+   * @var integer
+   */
+  public $nivel_acesso_fk;
 
-    /**
-     * Nível de acesso do usuário
-     * @var string
-     */
-    public $tipo_acesso;
+  /**
+   * Cod de acesso do usuário
+   * @var integer
+   */
+  public $codnivel_acesso;
 
-    /**
-     * Método responsável por retornar o usuário com base em seu email
-     * @param string $email
-    //  * @return User|false
-     */
-    public static function getUserByLogin($login){
-      // Condição para selecionar os computadores pelo código do laboratório
-      $where = "usuario.login = $login";
+  /**
+   * Nível de acesso do usuário
+   * @var string
+   */
+  public $tipo_acesso;
 
-      //PEGAR OS DADOS DA SITUACAO COM INNERJOIN
-      $join = 'INNER JOIN nivel_acesso ON usuario.nivel_acesso_fk = nivel_acesso.codnivel_acesso';
-      return (new Database('usuario'))->select($where, null, null, '*', $join)->fetchObject(self::class);
-    }
+  /**
+   * Método responsável por retornar o usuário com base em seu email
+   * @param string $email
+  //  * @return User|false
+    */
+  public static function getUserByLogin($login){
+    // Condição para selecionar os computadores pelo código do laboratório
+    $where = "usuario.login = $login";
+
+    //PEGAR OS DADOS DA SITUACAO COM INNERJOIN
+    $join = 'INNER JOIN nivel_acesso ON usuario.nivel_acesso_fk = nivel_acesso.codnivel_acesso';
+    return (new Database('usuario'))->select($where, null, null, '*', $join)->fetchObject(self::class);
+  }
+
+  /**
+   * Metodo responsavel por criar um novo usuario
+  */
+  public function setNewUser(){
+    $database =  new Database('usuario');
+    $this->codusuario = $database->insert([
+      'login' => $this->login,
+      'email_usuario'=> $this->email_usuario, 
+      'senha' => $this->senha,
+      'nome_usuario'=> $this->nome_usuario,
+      'nivel_acesso_fk'=> $this->nivel_acesso_fk
+    ]);
+    return true;
+  }
+
+  /**
+   * Metodo responsavel por trazer todos os usuarios
+   */
+  public static function getAllUser(){
+    return (new Database('usuario'))->select()->fetchAll();
+  }
+
+  /**
+   * Metodo responsavel por trazer os usuario sem permissao no sistema
+   * 
+   */
+  public static function getNotPermissao() {
+    $where = "usuario.nivel_acesso_fk = 4";
+    return (new Database('usuario'))->select($where)->fetchAll();
+  }
+
 }

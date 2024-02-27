@@ -11,6 +11,25 @@ use \app\Utils\View;
 class Computador extends Page{
     
     private static function getComputadorItems($request,$codlaboratorio,&$obPagination){
+        // //BUSCA A QUANTIDADE DE COMPUTADORES
+        // $CountPCdata = file_get_contents('http://localhost:8080/computadores/count/'.$codlaboratorio);
+        // $quantidadetotal = json_decode($CountPCdata);
+        // var_dump($quantidadetotal);
+
+        // //BUACA INFORMACOES DO PC
+        // $computadorData = file_get_contents('http://localhost:8080/computadores');
+        // $computadores = json_decode($computadorData);
+        // if ($computadores !== null && !isset($computadores->error)) {
+        //     foreach ($computadores as $data) {
+        //         $patrimonio = $data->patrimonio;
+        //         $numerolaboratorio = $data->laboratorio->numerolaboratorio;
+        //         $tiposituacao = $data->situacao->tiposituacao;
+        //     }
+        // } else {
+        //     // Se houver um erro na resposta da API, trate conforme necessário
+        //     $content = 'Erro ao acessar a API';
+        // }
+        
         // Computadores
         $itens = '';
         // Ícones de status
@@ -29,6 +48,7 @@ class Computador extends Page{
         $obPagination = new Pagination($quantidadetotal, $paginaAtual,10);
 
         // Resultados da página
+        // $results = array_slice($quantidadetotal, $obPagination->getLimit());
         $results = EntityComputador::getComputadoresLaboratorioPagination($codlaboratorio, $obPagination, $obPagination->getLimit());
         //RENDERIZA O ITEM
         // Iterar sobre os computadores deste laboratório

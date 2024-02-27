@@ -87,6 +87,6 @@ class Menu extends Page {
         ]);
 
         //RETONA A PAGINA COMPLETA
-        return parent::getPanel('Home > Somos Devs', $content, 'home');
+        return parent::getPanel('Home', $content, 'home');
     }
 }

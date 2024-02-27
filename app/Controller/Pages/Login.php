@@ -45,6 +45,9 @@ class Login extends Page{
             return self::getLogin($request, 'Login ou Senha inválidos');
         }
 
+        if($obUser->codnivel_acesso == 2 || $obUser->codnivel_acesso == 3 || $obUser->codnivel_acesso == 4) {
+            return self::getLogin($request, 'Você não tem permissão para entrar!');
+        }
 
         //VERIFICA A SENHA DO USUARIO
         if(!password_verify($senha, $obUser->senha)) {
