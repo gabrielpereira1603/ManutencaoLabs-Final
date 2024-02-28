@@ -106,9 +106,9 @@ class Manutencao extends Page {
         $obManutencao->cadastrarManutencao($codcomputador);
 
         if($obManutencao = true){
-            $request->getRouter()->redirect('/admin?success=2');
+            $request->getRouter()->redirect('/admin?success=manutencaoAdd');
         }else{
-            $request->getRouter()->redirect('/?error=2');        
+            $request->getRouter()->redirect('/admin?success=manuntencaoNot');        
         }
     }
-}
+}            

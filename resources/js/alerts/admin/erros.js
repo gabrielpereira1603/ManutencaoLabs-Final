@@ -36,3 +36,27 @@ if (successParam === 'add') {
 if (errorParam === 'not') {
     showAlert('error', 'Usuário não foi cadastrado com sucesso!');
 }
+
+if (successParam === 'permissaoAdd') {
+    showAlert('success', 'Permissão alterada com sucesso!');
+}
+
+if (errorParam === 'permissaoNot') {
+    showAlert('error', 'Erro ao alterar a permissão!');
+}
+
+if (successParam === 'manutencaoAdd') {
+    showAlert('success', 'Manutenção finalizada com sucesso!');
+}
+
+if (errorParam === 'manuntencaoNot') {
+    showAlert('error', 'Erro ao finalizar a manutenção');
+}
+
+if (successParam === 'reclamacaoAdd') {
+    showAlert('success', 'Reclamação finalizada com sucesso!');
+}
+
+if (errorParam === 'reclamacaoNot') {
+    showAlert('error', 'Erro ao finalizar a Reclamação');
+}

@@ -81,9 +81,9 @@ class Reclamacao extends Page {
         // Chama o método para cadastrar a reclamação
         $obReclamacao->cadastrarReclamacao($componente);
         if($obReclamacao = true){
-            $request->getRouter()->redirect('/?success=1');
+            $request->getRouter()->redirect('/?success=reclamacaoAdd');
         }else{
-            $request->getRouter()->redirect('/?error=1');
+            $request->getRouter()->redirect('/?error=reclamacaoNot');
         }
        
     }

@@ -7,49 +7,48 @@
     <div class="permissao">
         <legend>Permissões de usuário</legend>
         <label for="nivel_acesso">Usuários:</label>
-        <select class="form-select mb-3" aria-label="Default select example" name="usuario" id="select-usuario">
+        <select class="form-select mb-3" aria-label="Default select example" name="nome" id="select-usuario" required>
             <option value="">Selecione um Usuário</option>
             {{usuarios}}
         </select>
 
         <label for="nivel_acesso" class="mt-2">Selecione o nível de acesso:</label>
-        <select class="form-select mb-3" aria-label="Default select example" name="nivel-acesso" id="select-acesso">
+        <select class="form-select mb-3" aria-label="Default select example" name="nivel_acesso" id="select-acesso" required>
             <option value="">Selecione um acesso</option>
             {{nivel_acesso}}
         </select>
 
         <div class="form-floating mb-3">
-            <input type="number" class="form-control" id="login-user" name="login" placeholder="RM do usuário">
+            <input type="number" class="form-control" id="login-user" name="login" placeholder="RM do usuário" required>
             <label for="RM" name="login">Login:</label>
         </div>
 
         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-danger" type="submit" name="remover" >Alterar permissão</button>
+            <button class="btn btn-danger" type="submit" name="remover">Alterar permissão</button>
         </div>
-        
     </div>
 
     <div class="table-permissao">
-        <table class="table table-striped table-hover mt-4" >
+        <table class="table table-striped table-hover mt-4">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">RM</th>
                     <th scope="col">Nome</th>
                     <th scope="col">Email</th>
                 </tr>
-                </thead>
+            </thead>
             <tbody>
                 <legend>Lista de usuários sem permissão:</legend>
-                    <tr>
-                        {{not-permissao}}
-                    </tr>
+                <tr>
+                    {{not-permissao}}
+                </tr>
             </tbody>
         </table>
     </div>
 </form>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // Initialize Select2 with tagging enabled
         $('#select-usuario').select2({
             tags: true

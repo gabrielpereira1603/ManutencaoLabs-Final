@@ -45,12 +45,12 @@ $obRouter->get('/admin/user/acesso',[
 ]);
 
 //ROTA ALTERAR ACESSO(post)
-$obRouter->post('admin/user/acesso',[
+$obRouter->post('/admin/user/acesso',[
     'middlewares' => [
         'required-admin-login'
     ],
     function($request) {
-        return new Response(200,Admin\User::setNewAcesso($request));
+        return new Response(200,Admin\User::setAcesso($request));
     }
 ]);
 

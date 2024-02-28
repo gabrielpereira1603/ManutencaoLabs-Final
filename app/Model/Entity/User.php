@@ -1,9 +1,11 @@
 <?php
 
 namespace app\Model\Entity;
+
 use \WilliamCosta\DatabaseManager\Database;
 
-class User {
+class User
+{
 
   /**
    * ID do usuário
@@ -11,10 +13,10 @@ class User {
    */
   public $codusuario;
 
-    /**
-    * Login do usuário
-    * @var string
-    */
+  /**
+   * Login do usuário
+   * @var string
+   */
   public $login;
 
   /**
@@ -76,7 +78,8 @@ class User {
    * @param string $email
   //  * @return User|false
     */
-  public static function getUserByLogin($login){
+  public static function getUserByLogin($login)
+  {
     // Condição para selecionar os computadores pelo código do laboratório
     $where = "usuario.login = $login";
 
@@ -87,15 +90,16 @@ class User {
 
   /**
    * Metodo responsavel por criar um novo usuario
-  */
-  public function setNewUser(){
-    $database =  new Database('usuario');
+   */
+  public function setNewUser()
+  {
+    $database = new Database('usuario');
     $this->codusuario = $database->insert([
       'login' => $this->login,
-      'email_usuario'=> $this->email_usuario, 
+      'email_usuario' => $this->email_usuario,
       'senha' => $this->senha,
-      'nome_usuario'=> $this->nome_usuario,
-      'nivel_acesso_fk'=> $this->nivel_acesso_fk
+      'nome_usuario' => $this->nome_usuario,
+      'nivel_acesso_fk' => $this->nivel_acesso_fk
     ]);
     return true;
   }
@@ -103,7 +107,8 @@ class User {
   /**
    * Metodo responsavel por trazer todos os usuarios
    */
-  public static function getAllUser(){
+  public static function getAllUser()
+  {
     return (new Database('usuario'))->select()->fetchAll();
   }
 
@@ -111,9 +116,36 @@ class User {
    * Metodo responsavel por trazer os usuario sem permissao no sistema
    * 
    */
-  public static function getNotPermissao() {
+  public static function getNotPermissao()
+  {
     $where = "usuario.nivel_acesso_fk = 4";
     return (new Database('usuario'))->select($where)->fetchAll();
   }
 
+  /**
+   * Metodo responsavel por alterar o Acesso do usuario
+   */
+  public static function setNewAcesso($login, $nivel_acesso)
+  {
+      // Assume $login is the unique identifier for the user (e.g., username or email)
+      // and $nivel_acesso is the new access level you want to set.
+  
+      // Construct the WHERE clause to identify the user record to update
+      $where = "login = '$login'";
+  
+      // Construct the array of fields to update with the new access level
+      $values = ['nivel_acesso_fk' => $nivel_acesso];
+  
+      // Call the update method with the WHERE clause and the array of fields to update
+      $result = (new Database('usuario'))->update($where, $values);
+  
+      // Check the result of the update operation
+      if ($result) {
+          // Update was successful, handle accordingly (e.g., return true, redirect, etc.)
+          return true;
+      } else {
+          // Update failed, handle accordingly (e.g., return false, set error message, etc.)
+          return false;
+      }
+  }
 }
