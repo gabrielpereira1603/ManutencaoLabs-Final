@@ -6,30 +6,12 @@ use \app\Model\Entity\Computador as EntityComputador;
 use \app\Model\Entity\Laboratorio as EntityLaboratorio;
 use \app\Model\Entity\Situacao as EntitySituacao;
 use WilliamCosta\DatabaseManager\Pagination;
+use \app\Controller\Api;
+use app\Controller\Api\Computador as ApiComputador;
 use \app\Utils\View;
 
-class Computador extends Page{
-    
+class Computador extends Page{   
     private static function getComputadorItems($request,$codlaboratorio,&$obPagination){
-        // //BUSCA A QUANTIDADE DE COMPUTADORES
-        // $CountPCdata = file_get_contents('http://localhost:8080/computadores/count/'.$codlaboratorio);
-        // $quantidadetotal = json_decode($CountPCdata);
-        // var_dump($quantidadetotal);
-
-        // //BUACA INFORMACOES DO PC
-        // $computadorData = file_get_contents('http://localhost:8080/computadores');
-        // $computadores = json_decode($computadorData);
-        // if ($computadores !== null && !isset($computadores->error)) {
-        //     foreach ($computadores as $data) {
-        //         $patrimonio = $data->patrimonio;
-        //         $numerolaboratorio = $data->laboratorio->numerolaboratorio;
-        //         $tiposituacao = $data->situacao->tiposituacao;
-        //     }
-        // } else {
-        //     // Se houver um erro na resposta da API, trate conforme necessário
-        //     $content = 'Erro ao acessar a API';
-        // }
-        
         // Computadores
         $itens = '';
         // Ícones de status
@@ -39,19 +21,19 @@ class Computador extends Page{
 
         // Quantidade total de registros
         $quantidadetotal = EntityComputador::getQuantidadeComputadores($codlaboratorio);
-
+        
         // Página atual
         $queryParams = $request->getQueryParams();
         $paginaAtual = $queryParams['page'] ?? 1;
 
         // Instância de paginação
         $obPagination = new Pagination($quantidadetotal, $paginaAtual,10);
-
-        // Resultados da página
-        // $results = array_slice($quantidadetotal, $obPagination->getLimit());
-        $results = EntityComputador::getComputadoresLaboratorioPagination($codlaboratorio, $obPagination, $obPagination->getLimit());
+        // Obtém o limite e o offset
+        $limit = $obPagination->getLimit();
+        $offset = $obPagination->getOffset();
+        
+        $results = EntityComputador::getComputadoresLaboratorioPagination($codlaboratorio, $obPagination, $limit, $offset);
         //RENDERIZA O ITEM
-        // Iterar sobre os computadores deste laboratório
         while ($obComputador = $results->fetchObject(EntityComputador::class)) {
             // Atualizar os contadores com base no tipo de situação do computador
             switch ($obComputador->codsituacao) {
@@ -71,18 +53,18 @@ class Computador extends Page{
                     $icone = ''; // Ícone padrão, caso não haja correspondência
                     break;
             }
-
- 
+        
             $itens .= View::render('admin/computador/item', [
                 'codcomputador' => $obComputador->codcomputador,
                 'patrimonio' => $obComputador->patrimonio,
-                'codlaboratorio' =>$codlaboratorio,
+                'codlaboratorio' => $obComputador->codlaboratorio,
                 'laboratorio' => $obComputador->numerolaboratorio,
                 'situacao' => $obComputador->tiposituacao,
                 'icone' => $icone,
                 'status' => $status
             ]);
         }
+        
 
         //RETORNA OS DEPOIMENTOS
         return $itens;
@@ -106,7 +88,7 @@ class Computador extends Page{
             ]);
             
             //RETORNA A PAGINA COMPLETA
-            return parent::getPage('Computadores > Somos Devs',$content);
+            return parent::getPage('Computadores',$content);
         }
     }
 

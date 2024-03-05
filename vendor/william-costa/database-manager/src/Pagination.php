@@ -56,10 +56,14 @@ class Pagination{
    * Método responsável por retornar a cláusula limit da SQL
    * @return string
    */
-  public function getLimit(){
-    $offset = ($this->limit * ($this->currentPage - 1));
-    return $offset.','.$this->limit;
+  public function getLimit() {
+    return $this->limit;
   }
+
+  public function getOffset() {
+    return $this->limit * ($this->currentPage - 1);
+  }
+
 
   /**
    * Método responsável por retornar as opções de páginas disponíveis

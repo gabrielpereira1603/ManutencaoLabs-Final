@@ -15,21 +15,25 @@ class Login {
     }
     /**
      * Metodo responsavel por criar o login do usuario
-     * @param User
+     * 
      * @return boolean
      */
     public static function login($obUser){
         //INICIA A SESSAO
         self::init();
 
+        $loginUsuario = $obUser[0]['login'];
+        $senhaUsuario = $obUser[0]['senha'];
+        $CodNivelAcesso = $obUser[0]['codnivel_acesso'];
+
         //DEFINE A SESSAO DO USUARIO
         $_SESSION['admin']['usuario'] = [
-            'codusuario' => $obUser->codusuario,
-            'nome_usuario'=> $obUser->nome_usuario,
-            'email_usuario'=> $obUser->email_usuario,
-            'login' => $obUser->login,
-            'nivel_acesso' => $obUser->nivel_acesso_fk,
-            'tipo_acesso'=> $obUser->tipo_acesso,
+            'codusuario' => $obUser[0]['codusuario'],
+            'nome_usuario'=> $obUser[0]['nome_usuario'],
+            'email_usuario'=> $obUser[0]['email_usuario'],
+            'login' => $obUser[0]['login'],
+            'nivel_acesso' => $obUser[0]['nivelacesso_fk'],
+            'tipo_acesso' => $obUser[0]['tipo_acesso']
         ];
 
         //SUCESSO

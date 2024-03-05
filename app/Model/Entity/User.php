@@ -73,21 +73,18 @@ class User
    */
   public $tipo_acesso;
 
-  /**
-   * Método responsável por retornar o usuário com base em seu email
-   * @param string $email
-  //  * @return User|false
-    */
+    /**
+   * Metodo responsavel por verificar o usuario pelo login
+   */
   public static function getUserByLogin($login)
   {
-    // Condição para selecionar os computadores pelo código do laboratório
-    $where = "usuario.login = $login";
+    $where = "usuario.login = '$login'";
 
-    //PEGAR OS DADOS DA SITUACAO COM INNERJOIN
-    $join = 'INNER JOIN nivel_acesso ON usuario.nivel_acesso_fk = nivel_acesso.codnivel_acesso';
-    return (new Database('usuario'))->select($where, null, null, '*', $join)->fetchObject(self::class);
+    $join = 'INNER JOIN nivel_acesso ON usuario.nivelacesso_fk = nivel_acesso.codnivel_acesso';
+
+    return (new Database('usuario'))->select($where,null,null,'*',$join)->fetchAll();
   }
-
+  
   /**
    * Metodo responsavel por criar um novo usuario
    */
@@ -127,25 +124,30 @@ class User
    */
   public static function setNewAcesso($login, $nivel_acesso)
   {
-      // Assume $login is the unique identifier for the user (e.g., username or email)
-      // and $nivel_acesso is the new access level you want to set.
-  
-      // Construct the WHERE clause to identify the user record to update
-      $where = "login = '$login'";
-  
-      // Construct the array of fields to update with the new access level
-      $values = ['nivel_acesso_fk' => $nivel_acesso];
-  
-      // Call the update method with the WHERE clause and the array of fields to update
-      $result = (new Database('usuario'))->update($where, $values);
-  
-      // Check the result of the update operation
-      if ($result) {
-          // Update was successful, handle accordingly (e.g., return true, redirect, etc.)
-          return true;
-      } else {
-          // Update failed, handle accordingly (e.g., return false, set error message, etc.)
-          return false;
-      }
+    // Construct the WHERE clause to identify the user record to update
+    $where = "login = '$login'";
+
+    // Construct the array of fields to update with the new access level
+    $values = ['nivel_acesso_fk' => $nivel_acesso];
+
+    // Call the update method with the WHERE clause and the array of fields to update
+    $result = (new Database('usuario'))->update($where, $values);
+
+    // Check the result of the update operation
+    if ($result) {
+        // Update was successful, handle accordingly (e.g., return true, redirect, etc.)
+        return true;
+    } else {
+        // Update failed, handle accordingly (e.g., return false, set error message, etc.)
+        return false;
+    }
+  }
+
+  /**
+   * Metodo reponsavel por atualizar as informacoes do usuario no banco 
+   */
+  public static function setUpdateUser($request) 
+  {
+
   }
 }

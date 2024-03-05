@@ -14,4 +14,3 @@ include __DIR__ .'/admin/manutencao.php';
 
 //INCLUI AS ROTAS DE USER
 include __DIR__ .'/admin/user.php';
-

@@ -77,7 +77,7 @@ class Computador {
         $where = "codlaboratorio_fk = $codlaboratorio";
     
         // Realiza a consulta para contar o número de registros
-        $result = $db->select($where, null, null, 'COUNT(*) as total')->fetchObject();
+        $result = $db->select($where, null, null,null, 'COUNT(*) as total',null)->fetchObject();
     
         // Retorna a quantidade total de computadores para o laboratório especificado
         return $result->total;
@@ -90,23 +90,22 @@ class Computador {
      * @param int $limit
      * @return //PDOStatement
      */
-    public static function getComputadoresLaboratorioPagination($codLaboratorio, $obPagination, $limit) {
+    public static function getComputadoresLaboratorioPagination($codlaboratorio, $obPagination, $limit, $offset) {
         // Condição para selecionar os computadores pelo código do laboratório
-        $where = "computador.codlaboratorio_fk = $codLaboratorio";
-
+        $where = "computador.codlaboratorio_fk = $codlaboratorio";
+    
         // Cláusula de junção para unir a tabela computador com a tabela situacao
-        $join = 
-        'INNER JOIN situacao ON computador.codsituacao_fk = situacao.codsituacao
-        INNER JOIN laboratorio ON computador.codlaboratorio_fk = laboratorio.codlaboratorio';
-
+        $join = 'INNER JOIN situacao ON computador.codsituacao_fk = situacao.codsituacao
+                 INNER JOIN laboratorio ON computador.codlaboratorio_fk = laboratorio.codlaboratorio';
+    
         // Cláusula ORDER BY para ordenar os resultados pelo campo 'patrimonio' em ordem crescente
         $orderBy = 'patrimonio ASC';
-
-        // Chama o método select da classe Database, passando a cláusula de junção, a cláusula ORDER BY e o limite
-        return (new Database('computador'))->select($where, $orderBy, $limit, '*', $join);
+    
+        // Chama o método select da classe Database, passando a cláusula de junção, a cláusula ORDER BY, o limite e o offset
+        return (new Database('computador'))->select($where, $orderBy, $limit, $offset, '*', $join);
     }
 
-        /**
+    /**
      * Metodo responsavel por retornar depoimentos
      * @param string $where
      * @param string $order

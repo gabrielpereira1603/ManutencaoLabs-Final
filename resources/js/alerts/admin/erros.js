@@ -15,7 +15,7 @@ function showAlert(messageType, messageText) {
         title: title,
         text: messageText,
         showConfirmButton: false,
-        timer:  1500
+        timer: 1500
     }).then(() => {
         // Clear the URL parameters
         const url = new URL(window.location.href);
@@ -24,39 +24,24 @@ function showAlert(messageType, messageText) {
     });
 }
 
-// Example usage
+// Mapeamento de parâmetros de URL para tipos de mensagens e textos
+const messageMap = {
+    'add': { messageType: 'success', messageText: 'Usuário cadastrado com sucesso!' },
+    'not': { messageType: 'error', messageText: 'Usuário não foi cadastrado com sucesso!' },
+    'permissaoAdd': { messageType: 'success', messageText: 'Permissão alterada com sucesso!' },
+    'permissaoNot': { messageType: 'error', messageText: 'Erro ao alterar a permissão!' },
+    'manutencaoAdd': { messageType: 'success', messageText: 'Manutenção finalizada com sucesso!' },
+    'manuntencaoNot': { messageType: 'error', messageText: 'Erro ao finalizar a manutenção' },
+    'reclamacaoAdd': { messageType: 'success', messageText: 'Reclamação finalizada com sucesso!' },
+    'reclamacaoNot': { messageType: 'error', messageText: 'Erro ao finalizar a Reclamação' },
+    'apiError': { messageType: 'error', messageText: 'Perca da conexão com a API!' },
+    'prenchaLogin': { messageType: 'error', messageText: 'Prencha o login para alterar as informações!'}, 
+};
+
+// Verifica os parâmetros de URL e exibe o alerta correspondente
 const urlParams = new URLSearchParams(window.location.search);
-const successParam = urlParams.get('success');
-const errorParam = urlParams.get('error');
-
-if (successParam === 'add') {
-    showAlert('success', 'Usuário cadastrado com sucesso!');
-}
-
-if (errorParam === 'not') {
-    showAlert('error', 'Usuário não foi cadastrado com sucesso!');
-}
-
-if (successParam === 'permissaoAdd') {
-    showAlert('success', 'Permissão alterada com sucesso!');
-}
-
-if (errorParam === 'permissaoNot') {
-    showAlert('error', 'Erro ao alterar a permissão!');
-}
-
-if (successParam === 'manutencaoAdd') {
-    showAlert('success', 'Manutenção finalizada com sucesso!');
-}
-
-if (errorParam === 'manuntencaoNot') {
-    showAlert('error', 'Erro ao finalizar a manutenção');
-}
-
-if (successParam === 'reclamacaoAdd') {
-    showAlert('success', 'Reclamação finalizada com sucesso!');
-}
-
-if (errorParam === 'reclamacaoNot') {
-    showAlert('error', 'Erro ao finalizar a Reclamação');
+for (let [key, value] of urlParams.entries()) {
+    if (messageMap[value]) {
+        showAlert(messageMap[value].messageType, messageMap[value].messageText);
+    }
 }

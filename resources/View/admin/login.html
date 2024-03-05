@@ -1,27 +1,47 @@
-<div class="d-flex justify-content-center">
-
-    <div class="card mt-3 text-dark text-center" style="width: 500px;">
-
-        <div class="card-header">
-            <h1>Login</h1>
-        </div>
-
-        <div class="card-body">
-            {{status}}
-            <form method="post">
-                <div class="form-group">
-                    <label for="">E-mail</label>
-                    <input type="text" name="login" class="form-control" id="" placeholder="email@teste.com" required autofocus>
+<section class="login mt-5">
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+        <div class="container">
+            <div class="row gx-lg-5 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h1 class="my-5 display-3 fw-bold ls-tight">
+                        Somos <span style="color: #facc15;">Dev's</span><br>
+                        the best<br/>
+                        <span style="color: #facc15;">for your business</span>
+                    </h1>
+                    <p style="color: hsl(217, 10%, 50.8%)">
+                        Bem-vindo ao Sistema de Manutenções Integrado (SMI), 
+                        a solução completa para gerenciar e controlar o andamento dos serviços em seus laboratórios.
+                        O SMI oferece uma plataforma centralizada que permite monitorar e supervisionar todas as atividades de manutenção em um único lugar.
+                    </p>
                 </div>
 
-                <div class="form-group my-3">
-                    <label for="">Senha</label>
-                    <input type="password" name="senha" class="form-control" id="" placeholder="*****************" required>
-                </div>
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card">
+                        <div class="card-body py-5 px-md-5">
+                            <form method="post">
+                                <div class="mb-4">
+                                    <input type="text" id="form3Example3" class="form-control" name="login" placeholder="Login">
+                                </div>
 
-                <button type="submit" class="btn btn-lg btn-danger">Entrar</button>
-            </form>
+                                <div class="mb-4">
+                                    <input type="password" id="form3Example4" class="form-control" name="senha" placeholder="Password">
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-block" style="background-color: #facc15;">
+                                        Sign up
+                                    </button>
+                                </div>
+
+                                <div class="d-flex justify-content-center gap-5 mt-3">
+                                    <p><a href="#" onclick="showSweetAlert()" style="color: #facc15;"><i class="bi bi-info-circle-fill"></i> Problema com a senha?</a></p>
+                                    <p><a href="#" id="esqueceu-senha-button" style="color: #facc15;"><i class="bi bi-envelope-arrow-up-fill"></i> Esqueceu a senha?</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-</div>
+</section>

@@ -79,7 +79,7 @@ class Database{
    */
   private function setConnection(){
     try{
-      $this->connection = new PDO('mysql:host='.self::$host.';dbname='.self::$name.';port='.self::$port,self::$user,self::$pass);
+      $this->connection = new PDO('pgsql:host='.self::$host.';dbname='.self::$name.';port='.self::$port,self::$user,self::$pass);
       $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     }catch(PDOException $e){
       die('ERROR: '.$e->getMessage());
@@ -90,7 +90,7 @@ class Database{
    * Método responsável por executar queries dentro do banco de dados
    * @param  string $query
    * @param  array  $params
-   * @return //PDOStatement
+   * @return PDOStatement
    */
   public function execute($query,$params = []){
     try{
@@ -124,25 +124,27 @@ class Database{
 
   /**
    * Método responsável por executar uma consulta no banco
-   * @param  string $where
-   * @param  string $order
-   * @param  string $limit
-   * @param  string $fields
+   * @param string $where
+   * @param string $order
+   * @param string $limit
+   * @param string $fields
+   * @param string $join (opcional)
    * @return PDOStatement
    */
-    public function select($where = null, $order = null, $limit = null, $fields = '*', $join = null) {
-      // DADOS DA QUERY
-      $whereClause = isset($where) ? 'WHERE ' . $where : '';
-      $orderClause = isset($order) ? 'ORDER BY ' . $order : '';
-      $limitClause = isset($limit) ? 'LIMIT ' . $limit : '';
-      $joinClause = isset($join) ? $join : '';
+  public function select($where = null, $order = null, $limit = null, $offset = null, $fields = '*', $join = null) {
+    // DADOS DA QUERY
+    $where = strlen($where) ? 'WHERE '.$where : '';
+    $order = strlen($order) ? 'ORDER BY '.$order : '';
+    $limit = strlen($limit) ? 'LIMIT '.$limit : '';
+    $offset = strlen($offset) ? 'OFFSET '.$offset : ''; // Adiciona o OFFSET se fornecido
+    $join = strlen($join) ? ' '.$join : ''; // Adiciona o JOIN se fornecido
 
-      // MONTA A QUERY
-      $query = 'SELECT ' . $fields . ' FROM ' . $this->table . ' ' . $joinClause . ' ' . $whereClause . ' ' . $orderClause . ' ' . $limitClause;
-
-      // EXECUTA A QUERY
-      return $this->execute($query);
-  }
+    // MONTA A QUERY
+    $query = 'SELECT '.$fields.' FROM '.$this->table.' '.$join.' '.$where.' '.$order.' '.$limit.' '.$offset;
+    // echo $query."<br>";
+    // EXECUTA A QUERY
+    return $this->execute($query);
+}
 
   /**
    * Método responsável por executar atualizações no banco de dados
@@ -150,17 +152,17 @@ class Database{
    * @param  array $values [ field => value ]
    * @return boolean
    */
-  public function update($where, $values){
-    // DADOS DA QUERY
+  public function update($where,$values){
+    //DADOS DA QUERY
     $fields = array_keys($values);
 
-    // MONTA A QUERY
-    $query = 'UPDATE '.$this->table.' SET '.implode('=?, ', $fields).'=? WHERE '.$where;
+    //MONTA A QUERY
+    $query = 'UPDATE '.$this->table.' SET '.implode('=?,',$fields).'=? WHERE '.$where;
 
-    // EXECUTAR A QUERY
-    $this->execute($query, array_values($values));
+    //EXECUTAR A QUERY
+    $this->execute($query,array_values($values));
 
-    // RETORNA SUCESSO
+    //RETORNA SUCESSO
     return true;
   }
 
@@ -179,33 +181,5 @@ class Database{
     //RETORNA SUCESSO
     return true;
   }
-
-  /**
- * Método responsável por atualizar a situação de um computador
- * @param int $codComputador O código do computador que será atualizado
- * @param int $codSituacaoFK O novo código da situação do computador
- * @return boolean
- */
-public function updateComputerSituation($where, $values){
-    // MONTA A QUERY
-    $query = 'UPDATE computador SET codsituacao_fk = ? WHERE codcomputador = ?';
-
-    // EXECUTAR A QUERY
-    $this->execute($query, [$values, $where]);
-
-    // RETORNA SUCESSO
-    return true;
-}
-
-public function updateStatusReclamacao($where, $values){
-  // MONTA A QUERY
-  $query = 'UPDATE reclamacao SET status = ? WHERE codreclamacao = ?';
-
-  // EXECUTAR A QUERY
-  $this->execute($query, [$values, $where]);
-
-  // RETORNA SUCESSO
-  return true;
-}
 
 }

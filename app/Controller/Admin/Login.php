@@ -22,7 +22,7 @@ class Login extends Page {
         $content = View::render('admin/login',[
             'status' => $status
         ]);
-
+        
         //RETORNA A PAGINA COMPLETA
         return parent::getPage('Login > Somos Devs',$content);
     }
@@ -37,20 +37,27 @@ class Login extends Page {
         $login = $postVars['login'] ?? '';
         $senha = $postVars['senha'] ?? '';
         
-
+        var_dump($login);
         //BUSCA USUARIO PELO LOGIN
         $obUser = User::getUserByLogin($login);
-        if(!$obUser instanceof User){
-            return self::getLogin($request, 'Login ou Senha inválidos');
+        //ATRIBUI OS VALORES DA REQUISICAO AS VARIAVEIS
+        $loginUsuario = $obUser[0]['login'];
+        $senhaUsuario = $obUser[0]['senha'];
+        $CodNivelAcesso = $obUser[0]['codnivel_acesso'];
+
+        // Verifica se o usuário foi encontrado e se a senha está correta
+        if ($loginUsuario != $login) {
+            // O usuário não foi encontrado ou o login está incorreto
+            $request->getRouter()->redirect('/admin/login?error=loginError');        
         }
 
-        if($obUser->codnivel_acesso == 1 || $obUser->codnivel_acesso == 4) {
-            return self::getLogin($request, 'Você não tem permissão para entrar!');
+        if($CodNivelAcesso == 1 || $CodNivelAcesso == 4) {
+            $request->getRouter()->redirect('/admin/login?error=loginErrorPermissao');
         }
 
         //VERIFICA A SENHA DO USUARIO
-        if(!password_verify($senha, $obUser->senha)) {
-            return self::getLogin($request, 'Login ou Senha inválidos');
+        if(!password_verify($senha, $senhaUsuario)) {
+            $request->getRouter()->redirect('/admin/login?error=loginError');  
         }
 
         //CRIA A SESSAO DE LOGIN

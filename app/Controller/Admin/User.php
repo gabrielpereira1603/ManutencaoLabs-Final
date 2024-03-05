@@ -120,6 +120,7 @@ class User extends Page
         $nivel_acesso = $postVars['nivel_acesso'] ?? '';
         $senha = $postVars['senha'] ?? '';
         $hashed_password = password_hash($senha, PASSWORD_DEFAULT);
+        
 
         $obUser = EntityUser::getUserByLogin($login);
         if (!$obUser == null) {
@@ -191,6 +192,54 @@ class User extends Page
         } else {
             $request->getRouter()->redirect('/admin/user/acesso?error=permissaoNot');
         }
+    }
+
+    /**
+     * Metodo responsavel por renderizar a view de alterar dados do usuario
+    */
+    public static function getUpdate($request) {
+        $userData = $_SESSION['admin']['usuario'];
+        $nomeUser = $userData['nome_usuario'];
+        $tipo_acesso_Session = $userData['tipo_acesso'];
+        $emailUser = $userData['email_usuario'];
+        $loginUser = $userData['login'];
+
+        $content = View::render('admin/modules/user/updateUser', [
+            'nivel_acesso' => $tipo_acesso_Session,
+            'nomeUser' => $nomeUser,
+            'emailUser' => $emailUser,
+            'loginUser' => $loginUser,
+            'usuarios' => self::getAll($request),
+        ]);
+
+        return parent::getPanel('Alterar Usuários', $content, 'user');
+    } 
+
+    /**
+     * Metodo responsavel por alterar os dados do usuarios
+     */
+    public static function setUpdate($request)
+    {
+        $postVars = $request->getPostVars();
+        $nome = $postVars['nome'] ?? '';    
+        $email = $postVars['email'] ?? '';
+        $login = $postVars['login'] ?? '';
+
+        if($login == null) {
+            $request->getRouter()->redirect('/admin/user/update?success=prenchaLogin');
+        }
+        
+        $codUsuario = EntityUser::getUserByLogin($login);
+        
+
+        $obUpdateUser = new EntityUser();
+
+        $obUpdateUser->nome_usuario = $nome;
+        $obUpdateUser->email_usuario = $email;
+        $obUpdateUser->login = $login;
+        $result = EntityUser::setUpdateUser($request);
 
     }
+    
 }
+

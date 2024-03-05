@@ -1,0 +1,83 @@
+<div>
+    <h2>Alterar credenciais do usuário</h2>
+    <p>Prencha os campos que deseja alterar</p>
+</div>
+
+<form method="post" class="form-group">
+    <div class="novo-user">
+
+        <div class="title-user">
+            <legend>Prencha as informações que deseja alterar:</legend>
+        </div>  
+
+        <select class="form-select mb-5" aria-label="Default select example" name="nome" id="select-usuario" required>
+            <option value="">Selecione um Usuário</option>
+            {{usuarios}}
+        </select>
+
+        <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" id="email" name="email" placeholder="example@exemple.com">
+            <label for="email">Email:</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control" id="login" name="login" placeholder="102030">
+            <label for="login">*Login:</label>
+        </div>
+
+        <div class="d-grid gap-2">
+            <button class="btn btn-warning" type="submit" name="criaruser">Alterar informações do usuário</button>
+        </div>
+        <hr>
+    </div>
+
+    <div class="user-info">
+        <div class="title-info">
+            <legend>Suas informações de usuário</legend>
+        </div>
+
+        <div class="text-info">
+            <div class="row">
+                <div class="col-md-6">
+                    <legend>Login:</legend>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInputDisabled" disabled>
+                        <label for="floatingInputDisabled">{{loginUser}}</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <legend>Nome:</legend> 
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInputDisabled" disabled>
+                        <label for="floatingInputDisabled">{{nomeUser}}</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <legend>Email:</legend> 
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInputDisabled" disabled>
+                        <label for="floatingInputDisabled">{{emailUser}}</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <legend>Nivel de Acesso:</legend> 
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInputDisabled" disabled>
+                        <label for="floatingInputDisabled">{{nivel_acesso}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).ready(function () {
+        // Initialize Select2 with tagging enabled
+        $('#select-usuario').select2({
+            tags: true
+        });
+    });
+</script>
