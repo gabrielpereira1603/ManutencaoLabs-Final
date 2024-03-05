@@ -45,18 +45,6 @@ class Manutencao extends Page {
             // Se $results estiver vazio, defina uma mensagem indicando que nenhuma reclamação foi encontrada
             $content = View::render('admin/modules/inserirManutencao/index', [
                 'nav' => parent::getNav($request),
-                'codcomputador' => $codcomputador,
-                'numerolaboratorio' => $obComputador->numerolaboratorio,
-                'patrimonio' => $obComputador->patrimonio,
-                'codreclamacao' => 'Nenhuma Reclamação Encontrada',
-                'status' => 'Nenhuma Reclamação Encontrada',
-                'descricao' => 'Nenhuma Descrição Encontrada',
-                'dataHora' => 'Nenhuma Data ou Horário Encontrado',
-                'login' => 'Nenhum Login Encontrado',
-                'nome_usuario' => 'Nenhuma Descrição Encontrada',
-                'email_usuario' => 'Nenhum e-mail Encontrado',
-                'foto_base64' => $fotoBase64,
-                'colorStatus' => $colorStatus,
 
             ]);
         } else {
@@ -64,20 +52,6 @@ class Manutencao extends Page {
             foreach ($results as $obReclamacao) {
                 $content .= View::render('admin/modules/inserirManutencao/index', [
                     'nav' => parent::getNav($request),
-                    // 'api' => self::getApi(),
-                    'codcomputador' => $codcomputador,
-                    'numerolaboratorio' => $obComputador->numerolaboratorio,
-                    'patrimonio' => $obComputador->patrimonio,
-                    'codreclamacao' => $obReclamacao['codreclamacao'],
-                    'status' => $obReclamacao['status'],
-                    'descricao' => $obReclamacao['descricao'],
-                    'dataHora' => date('H:i:s - d/m/Y', strtotime($obReclamacao['datahora_reclamacao'])),
-                    'login' => $obReclamacao['login'],
-                    'nome_usuario' => $obReclamacao['nome_usuario'],
-                    'email_usuario' => $obReclamacao['email_usuario'],
-                    'foto_base64' => $fotoBase64,
-                    'colorStatus' => $colorStatus,
-                    'componentes' => self::getComponentesView($codcomputador),
                 ]);
             }
         }

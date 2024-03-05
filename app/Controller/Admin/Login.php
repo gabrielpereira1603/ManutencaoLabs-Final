@@ -37,7 +37,6 @@ class Login extends Page {
         $login = $postVars['login'] ?? '';
         $senha = $postVars['senha'] ?? '';
         
-        var_dump($login);
         //BUSCA USUARIO PELO LOGIN
         $obUser = User::getUserByLogin($login);
         //ATRIBUI OS VALORES DA REQUISICAO AS VARIAVEIS

@@ -82,7 +82,7 @@ class User
 
     $join = 'INNER JOIN nivel_acesso ON usuario.nivelacesso_fk = nivel_acesso.codnivel_acesso';
 
-    return (new Database('usuario'))->select($where,null,null,'*',$join)->fetchAll();
+    return (new Database('usuario'))->select($where,null,null,null, '*',$join)->fetchAll();
   }
   
   /**

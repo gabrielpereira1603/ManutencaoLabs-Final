@@ -31,8 +31,12 @@ class Computador extends Page{
         // Instância de paginação
         $obPagination = new Pagination($quantidadetotal, $paginaAtual,10);
 
+        // Obtém o limite e o offset
+        $limit = $obPagination->getLimit();
+        $offset = $obPagination->getOffset();
+
         // Resultados da página
-        $results = EntityComputador::getComputadoresLaboratorioPagination($codlaboratorio, $obPagination, $obPagination->getLimit());
+        $results = EntityComputador::getComputadoresLaboratorioPagination($codlaboratorio, $obPagination, $limit, $offset);
         //RENDERIZA O ITEM
         // Iterar sobre os computadores deste laboratório
         while ($obComputador = $results->fetchObject(EntityComputador::class)) {

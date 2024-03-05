@@ -20,7 +20,7 @@ class Componente {
 
     public static function getComponentes(){
         // Chama o método select da classe Database, passando a cláusula de junção e a cláusula ORDER BY
-        return (new Database('componente'))->select(null, null, null, '*');
+        return (new Database('componente'))->select();
     }
 
 }

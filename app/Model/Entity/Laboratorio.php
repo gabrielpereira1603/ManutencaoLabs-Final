@@ -32,7 +32,7 @@ class Laboratorio {
      * @param string $fiel
      * @return //PDOStatement
     */
-    public static function getLaboratorios($where = [], $older = null, $limit = null, $fields = '*', $join = null) {
-        return (new Database('laboratorio'))->select($where,$older,$limit,$fields);
+    public static function getLaboratorios() {
+        return (new Database('laboratorio'))->select($where = null, $order = null, $limit = null, $offset = null, $fields = '*', $join = null);
     }
 }

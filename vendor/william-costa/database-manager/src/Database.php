@@ -129,7 +129,7 @@ class Database{
    * @param string $limit
    * @param string $fields
    * @param string $join (opcional)
-   * @return PDOStatement
+   * @return /PDOStatement
    */
   public function select($where = null, $order = null, $limit = null, $offset = null, $fields = '*', $join = null) {
     // DADOS DA QUERY

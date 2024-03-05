@@ -61,7 +61,7 @@ class Computador {
         INNER JOIN laboratorio ON computador.codlaboratorio_fk = laboratorio.codlaboratorio';
         
         // Chama o método select da classe Database, passando a cláusula de junção e a cláusula ORDER BY
-        return (new Database('computador'))->select($where, null, null, '*', $join)->fetchObject(self::class);
+        return (new Database('computador'))->select($where, null, null,null, '*', $join)->fetchObject(self::class);
     }
 
     /**
@@ -121,10 +121,10 @@ class Computador {
         $join = 'INNER JOIN situacao ON computador.codsituacao_fk = situacao.codsituacao';
     
         // Cláusula ORDER BY para ordenar os resultados pelo campo 'patrimonio' em ordem crescente
-        $orderBy = 'patrimonio ASC';
+        $order = 'patrimonio ASC';
     
         // Chama o método select da classe Database, passando a cláusula de junção e a cláusula ORDER BY
-        return (new Database('computador'))->select($where, $orderBy, null, '*', $join);
+        return (new Database('computador'))->select($where, $order,null,null,'*', $join);
     }
 
 }

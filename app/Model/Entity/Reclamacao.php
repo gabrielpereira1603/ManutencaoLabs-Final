@@ -54,7 +54,7 @@ class Reclamacao {
         $fields = 'reclamacao.*, usuario.login, usuario.nome_usuario, usuario.email_usuario, 
                    laboratorio.numerolaboratorio, computador.patrimonio';
         
-        return (new Database('reclamacao'))->select($where, null, null, $fields, $join)->fetchAll();
+        return (new Database('reclamacao'))->select($where, null, null,null, $fields, $join)->fetchAll();
     }
 
     /**

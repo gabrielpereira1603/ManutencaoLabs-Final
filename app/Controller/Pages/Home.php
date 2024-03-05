@@ -19,7 +19,7 @@ class Home extends Page {
         $itens = '';
 
         //RESULTADOS DA PAGINA
-        $results = EntityLaboratorio::getLaboratorios(null, 'codlaboratorio');
+        $results = EntityLaboratorio::getLaboratorios();
         
         // Dentro do loop while que itera sobre os laboratórios
         while ($obLaboratorio = $results->fetchObject(EntityLaboratorio::class)) {
@@ -81,6 +81,6 @@ class Home extends Page {
         ]);
 
         //RETONA A PAGINA COMPLETA
-        return parent::getPage('Home > Somos Devs', $content, 'home');
+        return parent::getPage('Home', $content, 'home');
     }
 }
