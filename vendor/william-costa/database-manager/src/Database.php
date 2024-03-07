@@ -107,21 +107,31 @@ class Database{
    * @param  array $values [ field => value ]
    * @return integer ID inserido
    */
-  public function insert($values){
-    //DADOS DA QUERY
+  public function insert($values, $returnColumn = null) {
+    // DADOS DA QUERY
     $fields = array_keys($values);
-    $binds  = array_pad([],count($fields),'?');
+    $binds = array_pad([], count($fields), '?');
 
-    //MONTA A QUERY
-    $query = 'INSERT INTO '.$this->table.' ('.implode(',',$fields).') VALUES ('.implode(',',$binds).')';
+    // MONTA A QUERY
+    $query = 'INSERT INTO ' . $this->table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $binds) . ')';
 
-    //EXECUTA O INSERT
-    $this->execute($query,array_values($values));
+    // Adiciona a cláusula RETURNING se returnColumn for especificado
+    if ($returnColumn) {
+        $query .= ' RETURNING ' . $returnColumn;
+    }
 
-    //RETORNA O ID INSERIDO
+    $statement = $this->execute($query, array_values($values));
+
+    // Se returnColumn foi especificado, recupera o valor retornado
+    if ($returnColumn) {
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result[$returnColumn];
+    }
+
+    // Retorna true se returnColumn não for especificado
+    // return true;
     return $this->connection->lastInsertId();
   }
-
   /**
    * Método responsável por executar uma consulta no banco
    * @param string $where
@@ -165,6 +175,22 @@ class Database{
     //RETORNA SUCESSO
     return true;
   }
+  /**
+   * Metodo reponsavel por atualizar a situacao do computador
+   */
+  public function updateComputerSituation($where, $values) {
+    // DADOS DA QUERY
+    $fields = ['codsituacao_fk']; // Campos a serem atualizados
+
+    // MONTA A QUERY
+    $query = 'UPDATE computador SET codsituacao_fk = ? WHERE '.$where;
+
+    // EXECUTAR A QUERY
+    $this->execute($query, [$values]);
+
+    // RETORNA SUCESSO
+    return true;
+}
 
   /**
    * Método responsável por excluir dados do banco
@@ -181,5 +207,4 @@ class Database{
     //RETORNA SUCESSO
     return true;
   }
-
 }

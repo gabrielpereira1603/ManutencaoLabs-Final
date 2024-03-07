@@ -14,6 +14,8 @@ O **Sistema de Manutenção Integrado** (Sistema de Manutenções Integrado) é 
 
 **RF - 03:** Finalizar API, todos os metodos de cadastro, inserir, vizualizar e atualizar objetos no banco.
 
+**RF - 04:** TENTAR UM JEITO DE INSERIR OS COMPONENTE DE TABELA N PARA N
+
 ## 🚨 Requisitos Não Funcionais
 **RNF - 01:** Melhorar a interface, focar em cores.
 

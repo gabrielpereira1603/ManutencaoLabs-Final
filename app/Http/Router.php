@@ -39,6 +39,7 @@ class Router {
     public function __construct($url) {
         $this->request = new Request($this);
         $this->url = $url;
+        var_dump($url);
         $this->setPrefix();
     }
 
@@ -48,7 +49,7 @@ class Router {
     private function setPrefix() {
         //INFORMACOES DA URL ATUAL
         $parseUrl = parse_url($this->url);
-
+ 
         //DEFINE O PREFIXO
         $this->prefix = $parseUrl['path'] ?? '';
     }

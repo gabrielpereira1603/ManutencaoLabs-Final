@@ -16,6 +16,7 @@ class View {
      */
     public static function init($vars = []) {
         self::$vars = $vars;
+        var_dump($vars);
     }
 
     //metodo para retornar o conteudo de uma view
@@ -33,6 +34,7 @@ class View {
     public static function render($view, $vars = []) {
         //CONTEUDO DA VIEW
         $conteudoView = self::getConteudoView($view);
+
 
         //MERGE DE VARIAVEIS DA VIEW
         $vars = array_merge(self::$vars, $vars);

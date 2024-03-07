@@ -36,6 +36,7 @@ const messageMap = {
     'reclamacaoNot': { messageType: 'error', messageText: 'Erro ao finalizar a Reclamação' },
     'apiError': { messageType: 'error', messageText: 'Perca da conexão com a API!' },
     'prenchaLogin': { messageType: 'error', messageText: 'Prencha o login para alterar as informações!'}, 
+    'loginError': { messageType: 'error', messageText: 'Usuário ou Senha inválidos!'}, 
 };
 
 // Verifica os parâmetros de URL e exibe o alerta correspondente

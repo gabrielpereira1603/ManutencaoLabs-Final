@@ -41,6 +41,14 @@ class Login extends Page{
 
         //BUSCA USUARIO PELO LOGIN
         $obUser = User::getUserByLogin($login);
+
+        // Verifica se o array obUser não está vazio
+        if (empty($obUser)) {
+            // O usuário não foi encontrado ou o login está incorreto
+            $request->getRouter()->redirect('/login?error=loginError');
+            return; // Interrompe a execução do método
+        }
+        
         //ATRIBUI OS VALORES DA REQUISICAO AS VARIAVEIS
         $loginUsuario = $obUser[0]['login'];
         $senhaUsuario = $obUser[0]['senha'];
