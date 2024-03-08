@@ -29,7 +29,7 @@ class Computador extends Page{
         $paginaAtual = $queryParams['page'] ?? 1;
 
         // Instância de paginação
-        $obPagination = new Pagination($quantidadetotal, $paginaAtual,10);
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual,2);
 
         // Obtém o limite e o offset
         $limit = $obPagination->getLimit();
