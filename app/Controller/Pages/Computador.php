@@ -45,12 +45,12 @@ class Computador extends Page{
                 case 1:
                     $status = 'status-itens status-item-1 btn btn-danger';
                     $icone = 'bi bi-tools'; // Ícone de computador Em Manutenção
-                    $disabled = '';
+                    $disabled = 'disabled';
                     break;
                 case 2:
                     $status = 'status-itens status-item-2 btn btn-success';
                     $icone = 'bi bi-check-circle-fill'; // Ícone de computador em Disponível
-                    $disabled = 'disabled';
+                    $disabled = '';
                     break;
                 case 3:
                     $status = 'status-itens status-item-3 btn btn-warning';
