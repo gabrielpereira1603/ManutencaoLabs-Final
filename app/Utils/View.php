@@ -22,11 +22,10 @@ class View {
     //@param string view
     //@return string
     private static function getConteudoView($view){
-        var_dump($view);
-        $file = __DIR__ .'/../../resources/view/'.$view.'.html';
+        $file = '/home2/somos411/public_html/manutencaoLabs/resources/View/'.$view.'.html';
         return file_exists($file) ? file_get_contents($file) :'';
     }
-
+    
     //Metodo responsavel por retorna o conteudo renderizado da view
     //@param string view
     //@param string/numeric
@@ -34,7 +33,6 @@ class View {
     public static function render($view, $vars = []) {
         //CONTEUDO DA VIEW
         $conteudoView = self::getConteudoView($view);
-
 
         //MERGE DE VARIAVEIS DA VIEW
         $vars = array_merge(self::$vars, $vars);
