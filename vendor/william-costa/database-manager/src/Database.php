@@ -64,7 +64,7 @@ class Database{
     self::$pass = $pass;
     self::$port = $port;
   }
-
+ 
   /**
    * Define a tabela e instancia e conexão
    * @param string $table
