@@ -22,6 +22,7 @@ Database::config(
 //DEFINE A CONSTANTE DE URL DO PROJETO
 define('URL', getenv('URL'));
 
+
 //DEFINE O VALOR PADRAO DAS VARIAVEIS
 View::init([
     'URL' => URL
