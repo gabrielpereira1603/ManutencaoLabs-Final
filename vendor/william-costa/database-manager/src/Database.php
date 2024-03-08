@@ -79,7 +79,7 @@ class Database{
    */
   private function setConnection(){
     try{
-      $this->connection = new PDO('pgsql:host='.self::$host.';dbname='.self::$name.';port='.self::$port,self::$user,self::$pass);
+      $this->connection = new PDO('mysql:host='.self::$host.';dbname='.self::$name.';port='.self::$port,self::$user,self::$pass);
       $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     }catch(PDOException $e){
       die('ERROR: '.$e->getMessage());
