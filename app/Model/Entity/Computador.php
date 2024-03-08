@@ -127,4 +127,8 @@ class Computador {
         return (new Database('computador'))->select($where, $order,null,null,'*', $join);
     }
 
+    public static function updateSituacao($where, $values) {
+        return (new Database('computador'))->updateComputerSituation($where,$values);
+    }
+
 }

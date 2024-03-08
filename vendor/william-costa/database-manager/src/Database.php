@@ -115,18 +115,7 @@ class Database{
     // MONTA A QUERY
     $query = 'INSERT INTO ' . $this->table . ' (' . implode(',', $fields) . ') VALUES (' . implode(',', $binds) . ')';
 
-    // Adiciona a cláusula RETURNING se returnColumn for especificado
-    if ($returnColumn) {
-        $query .= ' RETURNING ' . $returnColumn;
-    }
-
     $statement = $this->execute($query, array_values($values));
-
-    // Se returnColumn foi especificado, recupera o valor retornado
-    if ($returnColumn) {
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
-        return $result[$returnColumn];
-    }
 
     // Retorna true se returnColumn não for especificado
     // return true;
@@ -183,14 +172,14 @@ class Database{
     $fields = ['codsituacao_fk']; // Campos a serem atualizados
 
     // MONTA A QUERY
-    $query = 'UPDATE computador SET codsituacao_fk = ? WHERE '.$where;
+    $query = 'UPDATE computador SET codsituacao_fk = ? WHERE id_do_computador = ?'; // Substitua 'id_do_computador' pelo campo correto que identifica o computador
 
     // EXECUTAR A QUERY
-    $this->execute($query, [$values]);
+    $this->execute($query, [$values, $where]); // Passando o valor de $where como parte dos parâmetros
 
     // RETORNA SUCESSO
     return true;
-}
+  }
 
   /**
    * Método responsável por excluir dados do banco

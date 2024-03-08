@@ -13,7 +13,7 @@ class ReclamacaoComponente {
             $database->insert([
                 'codreclamacao_fk' => $codreclamacao, 
                 'codcomponente_fk' => $codComponente
-            ],'codreclamacao_fk');
+            ],);
         }
         return true;
     }

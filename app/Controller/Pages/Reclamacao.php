@@ -62,18 +62,20 @@ class Reclamacao extends Page {
         $codlaboratorio = $postVars['codlaboratorio'] ?? '';
         $codcomputador = $postVars['codcomputador'] ?? '';
     
-        // Verifica se foram enviadas imagens
-        // $fotos = [];
-        // if (!empty($_FILES['foto-reclamacao']['tmp_name'])) {
-        //     $numFiles = count($_FILES['foto-reclamacao']['tmp_name']);
-    
-        //     // Itera sobre cada foto e armazena no array $fotos
-        //     for ($i = 0; $i < $numFiles; $i++) {
-        //         $foto_tmp_name = $_FILES['foto-reclamacao']['tmp_name'][$i];
-        //         $foto_content = file_get_contents($foto_tmp_name); // Lê o conteúdo binário da foto
-        //         $fotos[] = $foto_content;
-        //     }
-        // }
+        // Dentro do seu método setReclamacao na controller
+        if (!empty($_FILES['foto-reclamacao']['tmp_name'][0])) {
+            $numFiles = count($_FILES['foto-reclamacao']['tmp_name']);
+
+            // Itera sobre cada foto e armazena no array $foto
+            $foto = [];
+            for ($i = 0; $i < $numFiles; $i++) {
+                $foto_tmp_name = $_FILES['foto-reclamacao']['tmp_name'][$i];
+                $foto_content = file_get_contents($foto_tmp_name); // Lê o conteúdo binário da foto
+                $foto[] = $foto_content;
+            }
+        } else {
+            $foto = [];
+        }
         
         // Cria uma nova instância da entidade Reclamacao
         $obReclamacao = new EntityReclamacao();
@@ -85,7 +87,7 @@ class Reclamacao extends Page {
         $obReclamacao->codcomputador_fk = $codcomputador;
     
         // Chama o método para cadastrar a reclamação
-        $success = $obReclamacao->cadastrarReclamacao($componente);
+        $success = $obReclamacao->cadastrarReclamacao($componente,$foto);
     
         if ($success) {
             $request->getRouter()->redirect('/?success=reclamacaoAdd');

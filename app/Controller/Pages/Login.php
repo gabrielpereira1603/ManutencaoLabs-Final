@@ -66,7 +66,7 @@ class Login extends Page{
 
         //VERIFICA A SENHA DO USUARIO
         if(!password_verify($senha, $senhaUsuario)) {
-            return self::getLogin($request, 'Login ou Senha inválidos');
+            $request->getRouter()->redirect('/login?error=loginError');        
         }
 
         //CRIA A SESSAO DE LOGIN

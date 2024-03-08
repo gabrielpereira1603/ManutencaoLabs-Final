@@ -61,7 +61,7 @@ class Reclamacao {
      * Metodo responsavel por cadastra a instancia atual do banco de dados
      * @return boolean
     */
-    public function cadastrarReclamacao($componente) {
+    public function cadastrarReclamacao($componente, $foto) {
         // Define a data atual
         $this->datahora_reclamacao = date('Y-m-d H:i:s');
     
@@ -74,43 +74,34 @@ class Reclamacao {
             'codcomputador_fk' => $this->codcomputador_fk,
             'codlaboratorio_fk' => $this->codlaboratorio_fk,
             'codusuario_fk' => $this->codusuario_fk,
-        ], 'codreclamacao'/**Tenho que especificar aqui o cod que desejo recuperar da ultima insercao*/);
-
+        ]);
     
-        // Chama o método setReclamacaoComponente após a inserção na tabela reclamacao
-        $reclamacaoComponente = new ReclamacaoComponente();
-        $reclamacaoComponente->setReclamacaoComponente($componente, $this->codreclamacao);
+        // INSERE AS FOTOS NO BANCO DE DADOS
+        $databaseFoto = new Database('foto');
+        foreach ($foto as $fotos) {
+            // Salvar a foto no banco de dados
+            $codFoto = $databaseFoto->insert([
+                'foto_reclamacao' => $fotos
+            ]);
+            // Vincular a foto à reclamação na tabela reclamacao_foto
+            $databaseReclamacaoFoto = new Database('reclamacao_foto');
+            $databaseReclamacaoFoto->insert([
+                'codreclamacao_fk' => $this->codreclamacao,
+                'codfoto_fk' => $codFoto
+            ]);
+        }
+    
+        // INSERE OS COMPONENTES NA TABELA RECLAMACAO_COMPONENTE
+        $reclamacaoComponente = new ReclamacaoComponente(); // Instanciando a classe ReclamacaoComponente
+        $reclamacaoComponente->setReclamacaoComponente($componente, $this->codreclamacao); // Chamando o método para inserir os componentes
+    
+        // Atualiza o tipo de situação do computador para 3
+        $computadorDatabase = new Database('computador');
+        $where = $this->codcomputador_fk;
+        $values = 1;
+        $computadorDatabase->updateComputerSituation($where, $values);
     
         return true;
-    }
-    
-    
-    
-    
-    
-        // // INSERE AS FOTOS RELACIONADAS À RECLAMAÇÃO
-        // $databaseFoto = new Database('foto');
-        // foreach ($fotos as $foto) {
-        //     // Salvar a foto no banco de dados
-        //     $codFoto = $databaseFoto->insert([
-        //         'foto_reclamacao' => $foto
-        //     ]);
-    
-        //     // Vincular a foto à reclamação na tabela reclamacao_foto
-        //     $databaseReclamacaoFoto = new Database('reclamacao_foto');
-        //     $databaseReclamacaoFoto->insert([
-        //         'codreclamacao_fk' => $this->codreclamacao,
-        //         'codfoto_fk' => $codFoto
-        //     ]);
-        // }
-    
-        // // Atualiza o tipo de situação do computador para 3
-        // $computadorDatabase = new Database('computador');
-        // $where = $this->codcomputador_fk;
-        // $values = 3;
-        // $computadorDatabase->updateComputerSituation($where, $values);
-                
-        // SUCESSO
-    //     return true;
-    // }
+    }    
+
 }
