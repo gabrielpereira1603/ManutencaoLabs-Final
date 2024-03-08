@@ -16,13 +16,13 @@ class View {
      */
     public static function init($vars = []) {
         self::$vars = $vars;
-        var_dump($vars);
     }
 
     //metodo para retornar o conteudo de uma view
     //@param string view
     //@return string
     private static function getConteudoView($view){
+        var_dump($view);
         $file = __DIR__ .'/../../resources/view/'.$view.'.html';
         return file_exists($file) ? file_get_contents($file) :'';
     }
