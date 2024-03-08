@@ -172,7 +172,7 @@ class Database{
     $fields = ['codsituacao_fk']; // Campos a serem atualizados
 
     // MONTA A QUERY
-    $query = 'UPDATE computador SET codsituacao_fk = ? WHERE id_do_computador = ?'; // Substitua 'id_do_computador' pelo campo correto que identifica o computador
+    $query = 'UPDATE computador SET codsituacao_fk = ? WHERE codcomputador = ?'; // Substitua 'id_do_computador' pelo campo correto que identifica o computador
 
     // EXECUTAR A QUERY
     $this->execute($query, [$values, $where]); // Passando o valor de $where como parte dos parâmetros
