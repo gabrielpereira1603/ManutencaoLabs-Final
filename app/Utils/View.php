@@ -28,7 +28,7 @@ class View {
     // }
 
     private static function getConteudoView($view){
-        $file = '/home2/somos411/public_html/manutencaoLabs/resources/View/'.$view.'.html';
+        $file = '/home2/somos411/public_html/SMI/resources/View/'.$view.'.html';
         return file_exists($file) ? file_get_contents($file) :'';
     }
 
