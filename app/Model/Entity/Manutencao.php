@@ -34,6 +34,7 @@ class Manutencao {
      */
     public $codreclamacao_fk;
 
+
     public function cadastrarManutencao($codcomputador) {
         $this->datahora_manutencao = date("Y-m-d H:i:s");
         
@@ -54,6 +55,5 @@ class Manutencao {
         $where = $this->codreclamacao_fk;
         $values = 'Concluída';
         $reclamacaoDatabase->updateStatusReclamacao($where, $values);
-
     }
 }

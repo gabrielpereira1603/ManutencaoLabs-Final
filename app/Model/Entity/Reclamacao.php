@@ -28,18 +28,18 @@ class Reclamacao {
     public static function getComponenteReclamacao($codcomputador) {
         $where = "reclamacao.codcomputador_fk = $codcomputador AND reclamacao.status = 'Em aberto'";
 
-        $join = 
-        'INNER JOIN usuario ON reclamacao.codusuario_fk = usuario.codusuario
-        INNER JOIN laboratorio ON reclamacao.codlaboratorio_fk = laboratorio.codlaboratorio
-        INNER JOIN computador ON reclamacao.codcomputador_fk = computador.codcomputador
-        INNER JOIN reclamacao_componente ON reclamacao.codreclamacao = reclamacao_componente.codreclamacao_fk
-        INNER JOIN componente ON componente.codcomponente = reclamacao_componente.codcomponente_fk';
+        $join =  ' INNER JOIN usuario ON reclamacao.codusuario_fk = usuario.codusuario
+          INNER JOIN laboratorio ON reclamacao.codlaboratorio_fk = laboratorio.codlaboratorio
+          INNER JOIN computador ON reclamacao.codcomputador_fk = computador.codcomputador
+          INNER JOIN reclamacao_componente ON reclamacao.codreclamacao = reclamacao_componente.codreclamacao_fk
+          INNER JOIN componente ON componente.codcomponente = reclamacao_componente.codcomponente_fk';
+        
         
         // Defina apenas os campos necessários na consulta
         $fields = 'reclamacao.*, usuario.login, usuario.nome_usuario, usuario.email_usuario, 
                    laboratorio.numerolaboratorio, computador.patrimonio, componente.nome_componente';
         
-        return (new Database('reclamacao'))->select($where, null, null, $fields, $join)->fetchAll();
+        return (new Database('reclamacao'))->select($where, null, null,null, $fields, $join)->fetchAll();
     }
 
     public static function getDetailsReclamacao($codcomputador) {

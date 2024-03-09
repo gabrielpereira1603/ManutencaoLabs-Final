@@ -17,4 +17,13 @@ class Foto {
         }
         return $codFoto;
     }
+
+    public static function getFotoReclamacao($codreclamacao) {
+        $where = "codreclamacao_fk = $codreclamacao";
+    
+        $join = "INNER JOIN foto ON reclamacao_foto.codfoto_fk = foto.codfoto";
+    
+        $fields = "foto.foto_reclamacao";
+        return (new Database('reclamacao_foto'))->select($where, null, null,null, $fields, $join)->fetchAll();
+    }
 }

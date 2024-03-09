@@ -7,6 +7,7 @@ use \app\Model\Entity\Laboratorio as EntityLaboratorio;
 use \app\Model\Entity\Situacao as EntitySituacao;
 use \app\Model\Entity\Reclamacao as EntityReclamacao;
 use \app\Model\Entity\Manutencao as EntityManutencao;
+use \app\Model\Entity\Foto as EntityFoto;
 use \app\Utils\View;
 
 class Manutencao extends Page {
@@ -25,6 +26,26 @@ class Manutencao extends Page {
         }
     }
     
+    public static function getFotoItens($codreclamacao) {
+        // Fetch related photos from the database
+        $results = EntityFoto::getFotoReclamacao($codreclamacao);
+
+        if (is_array($results)) {
+            $content = '';
+            foreach ($results as $foto) {
+                // Convert BLOB data to Base64
+                $base64Image = base64_encode($foto['foto_reclamacao']);
+        
+                $content .= View::render('admin/foto/item', [
+                    'foto_url' => $base64Image,
+                ]);
+            }
+            
+            return parent::getPage('Fotos da Reclamação', $content);
+        } else {
+            return parent::getPage('Fotos da Reclamação', 'Nenhuma foto encontrada para esta reclamação.');
+        }
+    }
 
     public static function getManutencao($request, $codcomputador) {
 
@@ -32,12 +53,7 @@ class Manutencao extends Page {
         $obComputador = EntityComputador::getInfoComputador($codcomputador);
         $fotoBase64 = '';
         $colorStatus = '';
-    
-        // Verificar se há uma imagem recuperada
-        if (!empty($results[0]['foto_reclamacao'])) {
-            // Convertendo a imagem para Base64
-            $fotoBase64 = base64_encode($results[0]['foto_reclamacao']);
-        }
+
         //define a cor do background da view que mostra o status da reclamacao
         $colorStatus = ($obComputador->codsituacao_fk == 3) ? '#fde68a' : '#fca5a5';
         $content = '';
@@ -45,15 +61,26 @@ class Manutencao extends Page {
             // Se $results estiver vazio, defina uma mensagem indicando que nenhuma reclamação foi encontrada
             $content = View::render('admin/modules/inserirManutencao/index', [
                 'nav' => parent::getNav($request),
-
             ]);
         } else {
             // Se $results não estiver vazio, renderize as informações das reclamações encontradas
             foreach ($results as $obReclamacao) {
+                var_dump($obReclamacao);
                 $content .= View::render('admin/modules/inserirManutencao/index', [
                     'nav' => parent::getNav($request),
+                    'codreclamacao' => isset($obReclamacao['codreclamacao']) ? $obReclamacao['codreclamacao'] : 'Nenhum ID Encontrado',
+                    'descricao'   => isset($obReclamacao['descricao']) ? $obReclamacao['descricao'] : 'Nenhuma descrição Encontrada',
+                    'status'   => isset($obReclamacao['status']) ? $obReclamacao['status'] : 'Nenhum Status Encontrado',
+                    'dataHora'   => isset($obReclamacao['datahora_reclamacao']) ? $obReclamacao['datahora_reclamacao'] : 'Nenhuma Hora Encontrada',
+                    'numerolaboratorio' => isset($obReclamacao['numerolaboratorio']) ? $obReclamacao['numerolaboratorio'] : 'Nenhum Laboratório Encontrado',
+                    'patrimonio' => isset($obReclamacao['patrimonio']) ? $obReclamacao['patrimonio'] : 'Nenhum Patrimonio Encontrado',
+                    'componentes' => self::getComponentesView($codcomputador),
+                    
+                    'foto'=> self::getFotoItens($obReclamacao['codreclamacao']),
                 ]);
+
             }
+       
         }
     
         //RETORNA A PAGINA COMPLETA
