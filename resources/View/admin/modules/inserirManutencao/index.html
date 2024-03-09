@@ -57,22 +57,41 @@
                 <div class="card-body">
                     <!-- Adicione a classe img-fluid para tornar a imagem responsiva -->
                     <div id="carouselExample" class="carousel slide">
-                      <div class="carousel-inner">
-                        {{foto}}
-                      </div>
-                      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                      </button>
-                      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                      </button>
+                        <div class="carousel-inner">
+                            {{foto}}
+                            <!-- <div class="carousel-item active">
+                                <img src="data:image/jpeg;base64,{{foto_url}}" alt="Imagem da reclamação" class="d-block w-100 carousel-image">
+                            </div> -->
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                 
                 </div>
             </div>
-        </div>        
+        </div>
+          
     </div>
 </div>
 
+<style>
+    .carousel-control-prev-icon {
+        background-color: rgba(196, 186, 52, 0.598);
+        border-radius: 10px;
+    }
+
+    .carousel-control-next-icon {
+        background-color: rgba(196, 186, 52, 0.598);
+        border-radius: 10px;
+    }
+    .carousel-inner .carousel-item img {
+        max-height: 500px; /* Defina o tamanho máximo desejado */
+        width: auto; /* Garante que a largura se ajuste automaticamente para manter a proporção */
+        margin: auto; /* Centraliza a imagem horizontalmente */
+    }
+</style>
