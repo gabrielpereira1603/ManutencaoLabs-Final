@@ -65,7 +65,6 @@ class Manutencao extends Page {
         } else {
             // Se $results não estiver vazio, renderize as informações das reclamações encontradas
             foreach ($results as $obReclamacao) {
-                var_dump($obReclamacao);
                 $content .= View::render('admin/modules/inserirManutencao/index', [
                     'nav' => parent::getNav($request),
                     'codreclamacao' => isset($obReclamacao['codreclamacao']) ? $obReclamacao['codreclamacao'] : 'Nenhum ID Encontrado',
