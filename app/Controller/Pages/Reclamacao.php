@@ -26,6 +26,31 @@ class Reclamacao extends Page {
         //RETORNA OS DEPOIMENTOS
         return $itens;
     }
+
+    public static function getReclamacaoAbertaItens($request) {
+        $itens = '';
+        $userData = $_SESSION['user']['usuario'];
+        $codusuario = $userData['codusuario'];
+        
+        $results = EntityReclamacao::getReclamacaoAbertas($codusuario);
+
+        while ($obReclamacao = $results->fetchObject(EntityReclamacao::class)) {
+            $itens .= View::render('Pages/reclamacao/item', [
+                'codreclamacao' => $obReclamacao->codreclamacao,
+                'status' => $obReclamacao->status,
+                'descricao'=> $obReclamacao->descricao,
+                'datahota_reclamacao' => $obReclamacao->datahora_reclamacao,
+                'datahota_fimreclamacao' => isset($obReclamacao->datahora_fimreclamacao) ?  $obReclamacao->datahora_fimreclamacao : 'Nenhum Horario Encontrado!' ,
+                'login' => $obReclamacao->login,
+                'nome_usuario' => $obReclamacao->nome_usuario,
+                'email_usuario' => $obReclamacao->email_usuario,
+                'numerolaboratorio' => $obReclamacao->numerolaboratorio,
+                'patrimonio' => $obReclamacao->patrimonio,
+                'nome_componente' => $obReclamacao->componentes,
+            ]);
+        }
+        return $itens;
+    }
   
     public static function getReclamacao($request,$codcomputador) {
 
@@ -39,13 +64,24 @@ class Reclamacao extends Page {
             'codlaboratorio'=> $obComputador->codlaboratorio,
             'numerolaboratorio' => $obComputador->numerolaboratorio,
             'patrimonio' => $obComputador->patrimonio,
-            // 'paginaAtual' => $paginaAtual,
         ]);
         
         //RETORNA A PAGINA COMPLETA
-        return parent::getPage('Reclamação User',$content);
+        return parent::getPage('Reclamação',$content);
     }
-    
+
+    /**
+     * Metodo responsavel por mostrar as reclamacaoes feitas pelo o usuario 
+    */
+    public static function getReclamacaoAbertas($request) {
+        
+        $content = View::render('Pages/modules/reclamacoesAbertas/index', [
+            'itens' => self::getReclamacaoAbertaItens($request),
+        ]);
+        
+        //RETORNA A PAGINA COMPLETA
+        return parent::getPanel('Reclamações',$content,'reclamacoesAbertas');
+    }
     /**
      * Metodo responsavel por definir o login do usuario
      * @param Request

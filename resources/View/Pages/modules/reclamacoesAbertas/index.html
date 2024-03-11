@@ -1,0 +1,70 @@
+<style>
+.container {
+    margin-top: 100px;
+}
+
+#myTable {
+   padding: 10px;
+}
+
+tbody button {
+    border: none;
+    background-color: transparent;
+}
+.thead-dark th{
+    border-radius: 10px 10px 0px 0px;
+    background-color: rgb(255,186,0);
+}
+</style>
+<div class="title m-4">
+    <h3 class="text-dark">
+        <span><span><i class='bx bx-comment-edit'></i></span> Reclamações em Aberto</span>
+    </h3>
+    <p>Para <span style="background-color: #7dd3fc; border-radius: 5px;">editar</span> ou 
+        <span style="background-color: #ef4444; border-radius: 5px;">excluir</span> uma reclamação basta selecionar uma das ações
+    </p>
+</div>
+
+<div class="m-5">
+    <div class="table-responsive">
+        <table class='table table-bordered table-striped' id="myTable">
+            <thead class='thead-dark'>
+                <tr>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Status</th>
+                    <th>Computador</th>
+                    <th>Laboratório</th>
+                    <th>Aluno</th>
+                    <th>Componentes</th>
+                    <th>Data Reclamação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">      
+                {{itens}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            "paging": true,
+            "pageLength": 10,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "language": {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/pt-BR.json',
+            }
+        });
+    });
+</script>
+
+

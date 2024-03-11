@@ -143,7 +143,7 @@ class Database{
     // echo $query."<br>";
     // EXECUTA A QUERY
     return $this->execute($query);
-}
+  }
 
   /**
    * Método responsável por executar atualizações no banco de dados
@@ -164,9 +164,10 @@ class Database{
     //RETORNA SUCESSO
     return true;
   }
+
   /**
    * Metodo reponsavel por atualizar a situacao do computador
-   */
+  */
   public function updateComputerSituation($where, $values) {
     // DADOS DA QUERY
     $fields = ['codsituacao_fk']; // Campos a serem atualizados
@@ -181,6 +182,36 @@ class Database{
     return true;
   }
 
+  public function updateFimreclamacao($where, $datahora_fimreclamacao) {
+    // DADOS DA QUERY
+    $fields = [
+        'codreclamacao' => $where,
+        'datahora_fimreclamacao' => $datahora_fimreclamacao
+    ]; // Campos a serem atualizados
+
+    // MONTA A QUERY
+    $query = 'UPDATE reclamacao SET datahora_fimreclamacao = :datahora_fimreclamacao WHERE codreclamacao = :codreclamacao';
+
+    // EXECUTAR A QUERY
+    $this->execute($query, $fields);
+
+    // RETORNA SUCESSO
+    return true;
+  }
+  
+  public function updateStatusReclamacao($where, $values) {
+      // DADOS DA QUERY
+      $fields = ['status']; // Campo a ser atualizado
+  
+      // MONTA A QUERY
+      $query = 'UPDATE reclamacao SET status = ? WHERE codreclamacao = ?'; // Query para atualizar o status da reclamação
+  
+      // EXECUTAR A QUERY
+      $this->execute($query, [$values, $where]); // Passando o valor de $where como parte dos parâmetros
+  
+      // RETORNA SUCESSO
+      return true;
+  }
   /**
    * Método responsável por excluir dados do banco
    * @param  string $where

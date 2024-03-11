@@ -61,6 +61,17 @@ class Manutencao extends Page {
             // Se $results estiver vazio, defina uma mensagem indicando que nenhuma reclamação foi encontrada
             $content = View::render('admin/modules/inserirManutencao/index', [
                 'nav' => parent::getNav($request),
+                'codreclamacao' => 'Nenhum ID Encontrado',
+                'descricao'   => 'Nenhuma descrição Encontrada',
+                'status'   => 'Nenhum Status Encontrado',
+                'dataHora'   => 'Nenhuma Hora Encontrada',
+                'numerolaboratorio' => 'Nenhum Laboratório Encontrado',
+                'patrimonio' => 'Nenhum Patrimonio Encontrado',
+                'nome_usuario' => 'Nenhum Usuário Encontrado',
+                'email_usuario' => 'Nenhum Usuário Encontrado',
+                'login' => 'Nenhum Usuário Encontrado',
+                'componentes' => 'Nenhum Componente Encontrado',
+                'foto'=> 'Nenhuma Foto Encontrado',
             ]);
         } else {
             // Se $results não estiver vazio, renderize as informações das reclamações encontradas
@@ -73,8 +84,10 @@ class Manutencao extends Page {
                     'dataHora'   => isset($obReclamacao['datahora_reclamacao']) ? $obReclamacao['datahora_reclamacao'] : 'Nenhuma Hora Encontrada',
                     'numerolaboratorio' => isset($obReclamacao['numerolaboratorio']) ? $obReclamacao['numerolaboratorio'] : 'Nenhum Laboratório Encontrado',
                     'patrimonio' => isset($obReclamacao['patrimonio']) ? $obReclamacao['patrimonio'] : 'Nenhum Patrimonio Encontrado',
+                    'nome_usuario' => isset($obReclamacao['nome_usuario']) ? $obReclamacao['nome_usuario'] : 'Nenhum Usuário Encontrado',
+                    'email_usuario' => isset($obReclamacao['email_usuario']) ? $obReclamacao['email_usuario'] : 'Nenhum Usuário Encontrado',
+                    'login' => isset($obReclamacao['login']) ? $obReclamacao['login'] : 'Nenhum Usuário Encontrado',
                     'componentes' => self::getComponentesView($codcomputador),
-                    
                     'foto'=> self::getFotoItens($obReclamacao['codreclamacao']),
                 ]);
 

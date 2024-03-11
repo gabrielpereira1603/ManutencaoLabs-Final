@@ -1,0 +1,59 @@
+<tr>
+   <td>{{codreclamacao}}</td>
+    <td>{{descricao}}</td>
+    <td>{{status}}</td>
+    <td>{{patrimonio}}</td>
+    <td>{{numerolaboratorio}}</td>
+    <td>{{nome_usuario}}</td>
+    <td>{{nome_componente}}</td>
+    <td>{{datahota_reclamacao}}</td>
+    <td>
+        <input type="hidden" name="codreclamacao" value="{{codreclamacao}}">
+        <input type="hidden" name="numerolaboratorio" value="{{numerolaboratorio}}">
+        <input type="hidden" name="patrimonio" value="{{patrimonio}}">
+        <button class="btn-editar" data-target="#modalEditarReclamacao{{codreclamacao}}">
+            <i class="bi bi-pencil-square" style="color: blue; font-size: 1.3rem;"></i>
+        </button>       
+        <button class="btn-excluir">
+            <i class='bx bx-trash' style="color: red; font-size: 1.5rem;"></i>
+        </button>                                
+    </td> 
+</tr>   
+
+<!-- Modal de Edição de Reclamação -->
+<div id="modalEditarReclamacao{{codreclamacao}}" class="modal">
+  <div class="modal-content">
+    <!-- Conteúdo do Modal -->
+    <!-- Aqui você pode adicionar os campos de edição da reclamação -->
+    <button class="close">Fechar</button>
+  </div>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+  // Função para abrir e fechar o modal
+  const toggleModal = (modalId) => {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.toggle('show');
+    }
+  }
+
+  // Adiciona um evento de clique aos botões de edição
+  const editarButtons = document.querySelectorAll('.btn-editar');
+  editarButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const targetModalId = this.getAttribute('data-target');
+      toggleModal(targetModalId);
+    });
+  });
+
+  // Adiciona um evento de clique ao botão de fechar do modal
+  const closeModalButtons = document.querySelectorAll('.modal .close');
+  closeModalButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const modalId = this.closest('.modal').getAttribute('id');
+      toggleModal(modalId);
+    });
+  });
+});
+</script>

@@ -16,7 +16,7 @@ class Page {
         ],
         'reclamacoesAbertas' =>[
             'label' => 'Reclamações Abertas',
-            'link' => URL.'/raclamacoesAbertas'
+            'link' => URL.'/reclamacoesAbertas'
         ],
         'historicoReclamacao' =>[
             'label' => 'Histórico Reclamações',
@@ -32,14 +32,6 @@ class Page {
         ],
     ];
 
-    /**
-     * Metodo responsavel por renderizar o footer da pagina
-     * caminho do footer: estudo-mvc\resources\Pages\footer.html
-     * @return string
-     */
-    private static function getFooter() {
-        return View::render('Pages/footer');
-    }
 
     /**
      * Metodo responsavel por retorna o conteudo da (view) da nossa pagina generica
@@ -49,7 +41,6 @@ class Page {
         [
             'title' => $title,
             'content' => $content,
-            'footer' => self::getFooter()
         ]);
   
     }

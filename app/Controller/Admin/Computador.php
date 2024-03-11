@@ -39,7 +39,7 @@ class Computador extends Page{
             // Atualizar os contadores com base no tipo de situação do computador
             switch ($obComputador->codsituacao) {
                 case 1:
-                    $status = 'status-itens status-item-1 btn btn-danger';
+                    $status = 'status-itens status-item-1 btn btn-warning';
                     $icone = 'bi bi-tools'; // Ícone de computador Em Manutenção
                     break;
                 case 2:
@@ -47,7 +47,7 @@ class Computador extends Page{
                     $icone = 'bi bi-check-circle-fill'; // Ícone de computador em Disponível
                     break;
                 case 3:
-                    $status = 'status-itens status-item-3 btn btn-warning';
+                    $status = 'status-itens status-item-3 btn btn-danger';
                     $icone = 'bi bi-exclamation-octagon-fill'; // Ícone de computador Indisponível
                     break;
                 default:

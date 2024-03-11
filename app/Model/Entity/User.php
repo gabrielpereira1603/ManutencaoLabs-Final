@@ -86,6 +86,18 @@ class User
   }
   
   /**
+   * Metodo responsavel por verificar o usuario pelo login
+   */
+  public static function getUserByID($codusuario)
+  {
+    $where = "usuario.codusuario = '$codusuario'";
+
+    $join = 'INNER JOIN nivel_acesso ON usuario.nivelacesso_fk = nivel_acesso.codnivel_acesso';
+
+    return (new Database('usuario'))->select($where,null,null,null, '*',$join)->fetch();
+  }
+  
+  /**
    * Metodo responsavel por criar um novo usuario
    */
   public function setNewUser()
@@ -115,9 +127,15 @@ class User
    */
   public static function getNotPermissao()
   {
-    $where = "usuario.nivel_acesso_fk = 4";
+    $where = "usuario.nivelacesso_fk = 4";
     return (new Database('usuario'))->select($where)->fetchAll();
   }
+
+  /**
+   * Metodo responsavel pro trazer um suaurio pelo login
+   * 
+   */
+
 
   /**
    * Metodo responsavel por alterar o Acesso do usuario

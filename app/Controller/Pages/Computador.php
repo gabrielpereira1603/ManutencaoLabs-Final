@@ -29,7 +29,7 @@ class Computador extends Page{
         $paginaAtual = $queryParams['page'] ?? 1;
 
         // Instância de paginação
-        $obPagination = new Pagination($quantidadetotal, $paginaAtual,2);
+        $obPagination = new Pagination($quantidadetotal, $paginaAtual,10);
 
         // Obtém o limite e o offset
         $limit = $obPagination->getLimit();
@@ -37,13 +37,13 @@ class Computador extends Page{
 
         // Resultados da página
         $results = EntityComputador::getComputadoresLaboratorioPagination($codlaboratorio, $obPagination, $limit, $offset);
-        //RENDERIZA O ITEM
+
         // Iterar sobre os computadores deste laboratório
         while ($obComputador = $results->fetchObject(EntityComputador::class)) {
             // Atualizar os contadores com base no tipo de situação do computador
             switch ($obComputador->codsituacao) {
                 case 1:
-                    $status = 'status-itens status-item-1 btn btn-danger';
+                    $status = 'status-itens status-item-1 btn btn-warning';
                     $icone = 'bi bi-tools'; // Ícone de computador Em Manutenção
                     $disabled = 'disabled';
                     break;
@@ -53,7 +53,7 @@ class Computador extends Page{
                     $disabled = '';
                     break;
                 case 3:
-                    $status = 'status-itens status-item-3 btn btn-warning';
+                    $status = 'status-itens status-item-3 btn btn-danger';
                     $icone = 'bi bi-exclamation-octagon-fill'; // Ícone de computador indisponível
                     $disabled = 'disabled';
                     break;
@@ -95,7 +95,7 @@ class Computador extends Page{
                 'numerolaboratorio' => $NumeroLaboratorio,
             ]);
             //RETORNA A PAGINA COMPLETA
-            return parent::getPage('Computadores > Somos Devs',$content);
+            return parent::getPage('Computadores',$content);
         }
     }
 

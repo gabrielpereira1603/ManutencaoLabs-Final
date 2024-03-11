@@ -18,11 +18,30 @@ class Reclamacao {
     public $codlaboratorio_fk;
     public $codusuario_fk;
 
-    public static function getCodReclamacao($codcomputador){
-        $where = "reclamacao.codcomputador_fk = $codcomputador AND reclamacao.status = 'Em aberto'";
-        $fields = 'reclamacao.codreclamacao';
-        return (new Database('reclamacao'))->select($where, null, null, $fields, null)->fetchAll();
+    /**
+     * Metodo responsavel por trazer as reclamacoes realizadas pelo o usuario que estao em abertas
+     */
+    public static function getReclamacaoAbertas($codusuario){
+        $where = "reclamacao.codusuario_fk = $codusuario
+        AND reclamacao.status = 'Em aberto' GROUP BY reclamacao.codreclamacao";
 
+        $join = ' INNER JOIN 
+            usuario ON reclamacao.codusuario_fk = usuario.codusuario 
+        INNER JOIN 
+            laboratorio ON reclamacao.codlaboratorio_fk = laboratorio.codlaboratorio 
+        INNER JOIN 
+            computador ON reclamacao.codcomputador_fk = computador.codcomputador 
+        INNER JOIN 
+            reclamacao_componente ON reclamacao.codreclamacao = reclamacao_componente.codreclamacao_fk 
+        INNER JOIN 
+            componente ON componente.codcomponente = reclamacao_componente.codcomponente_fk';
+        
+        // Ajuste aqui para usar GROUP_CONCAT
+        $fields = 'reclamacao.*, usuario.login, usuario.nome_usuario, usuario.email_usuario, 
+                    laboratorio.numerolaboratorio, computador.patrimonio, 
+                    GROUP_CONCAT(componente.nome_componente SEPARATOR \', \') AS componentes';
+        
+        return (new Database('reclamacao'))->select($where, null, null,null, $fields, $join);
     }
 
     public static function getComponenteReclamacao($codcomputador) {
@@ -103,5 +122,19 @@ class Reclamacao {
     
         return true;
     }    
+
+    public static function findById($codreclamacao) {
+        $where = "reclamacao.codreclamacao = $codreclamacao"; // Condição para o código da reclamação
+    
+        $join = 'INNER JOIN usuario ON reclamacao.codusuario_fk = usuario.codusuario
+                 INNER JOIN laboratorio ON reclamacao.codlaboratorio_fk = laboratorio.codlaboratorio
+                 INNER JOIN computador ON reclamacao.codcomputador_fk = computador.codcomputador';
+    
+        // Defina apenas os campos necessários na consulta
+        $fields = 'reclamacao.*, usuario.login, usuario.nome_usuario, usuario.email_usuario, 
+                   laboratorio.numerolaboratorio, computador.patrimonio';
+    
+        return (new Database('reclamacao'))->select($where, null, null, null, $fields, $join)->fetchAll();
+    }
 
 }

@@ -46,13 +46,13 @@ class Menu extends Page {
                 // Atualizar os contadores com base no tipo de situação do computador
                 switch ($obComputador->codsituacao_fk) {
                     case 1:
-                        $disponiveis++;
+                        $emManutencao++;
                         break;
                     case 2:
-                        $indisponiveis++;
+                        $disponiveis++;
                         break;
                     case 3:
-                        $emManutencao++;
+                        $indisponiveis++;
                         break;
                     default:
                         // Situação inválida
