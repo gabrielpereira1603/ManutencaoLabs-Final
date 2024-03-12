@@ -32,4 +32,19 @@ class Reclamacao extends Api {
         // Retorna os usuários em formato JSON
         return $itens;
     }
+
+    public static function getReclamacaoPorComp($request) {
+        $itens =[];
+        $results = EntityReclamacao::ReclamacaoPorComp();
+
+        while($obReclamacao = $results->fetchObject(EntityReclamacao::class)){
+            $itens[] = [
+                'total_reclamacoes' => $obReclamacao->total_reclamacoes,
+                'nome_componente' => $obReclamacao->nome_componente,
+            ];
+        }
+        // Retorna os usuários em formato JSON
+        return $itens;
+    }
+    
 }

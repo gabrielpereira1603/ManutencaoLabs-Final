@@ -73,4 +73,18 @@ class Manutencao {
             $reclamacaoDatabase->updateStatusReclamacao($where, 'Fechada em atraso');
         }
     }
+
+    public static function ManutencaoPorUser() {
+        // Monta a string para os campos que queremos selecionar
+        $fields = 'usuario.nome_usuario, COUNT(manutencao.codmanutencao) AS total_manutencoes';
+        
+        // Monta a string para os joins das tabelas
+        $join = 'INNER JOIN manutencao ON usuario.codusuario = manutencao.codusuario_fk';
+        
+        // Agrupa os resultados pelo código do usuário e nome do usuário
+        $groupBy = 'usuario.codusuario, usuario.nome_usuario';
+        
+        // Chama o método select da classe Database com os parâmetros construídos
+        return (new Database('usuario'))->select(null, 'total_manutencoes DESC', null, null, $fields, $join . ' GROUP BY ' . $groupBy);
+    }
 }

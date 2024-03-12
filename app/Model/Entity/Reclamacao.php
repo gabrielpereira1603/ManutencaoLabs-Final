@@ -61,6 +61,24 @@ class Reclamacao {
         // Chama o método select da classe Database com os parâmetros construídos
         return (new Database('laboratorio'))->select(null, 'total_reclamacoes DESC', null, null, $fields, $join . ' GROUP BY ' . $groupBy);
     }
+
+    /**
+     * Metodo que tras total de reclamacao por laboratorio
+     */
+    public static function reclamacaoPorComp() {
+        // Monta a string para os campos que queremos selecionar
+        $fields = 'componente.codcomponente, componente.nome_componente, COUNT(reclamacao.codreclamacao) AS total_reclamacoes';
+    
+        // Monta a string para os joins das tabelas
+        $join = 'JOIN reclamacao_componente ON componente.codcomponente = reclamacao_componente.codcomponente_fk
+                 JOIN reclamacao ON reclamacao_componente.codreclamacao_fk = reclamacao.codreclamacao';
+    
+        // Agrupa os resultados pelo código do componente e nome do componente
+        $groupBy = 'componente.codcomponente, componente.nome_componente';
+    
+        // Chama o método select da classe Database com os parâmetros construídos
+        return (new Database('componente'))->select(null, 'total_reclamacoes DESC', null, null, $fields, $join . ' GROUP BY ' . $groupBy);
+    }
     
     
     public static function getComponenteReclamacao($codcomputador) {

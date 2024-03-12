@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    fetch('https://somosdevteam.com/SMI/api/v1/reclamacao')
+    fetch('https://somosdevteam.com/SMI/api/v1/reclamacaoPorLab')
     .then(response => response.json())
     .then(data => {
         const ctx = document.getElementById('myChart-ReclamacaoLaboratorio');
