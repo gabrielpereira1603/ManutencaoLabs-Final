@@ -94,7 +94,7 @@ class User
 
     $join = 'INNER JOIN nivel_acesso ON usuario.nivelacesso_fk = nivel_acesso.codnivel_acesso';
 
-    return (new Database('usuario'))->select($where,null,null,null, '*',$join)->fetch();
+    return (new Database('usuario'))->select($where,null,null,null, '*',$join);
   }
   
   /**
@@ -146,7 +146,7 @@ class User
     $where = "login = '$login'";
 
     // Construct the array of fields to update with the new access level
-    $values = ['nivel_acesso_fk' => $nivel_acesso];
+    $values = ['nivelacesso_fk' => $nivel_acesso];
 
     // Call the update method with the WHERE clause and the array of fields to update
     $result = (new Database('usuario'))->update($where, $values);

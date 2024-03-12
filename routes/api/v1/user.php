@@ -10,6 +10,9 @@ $obRouter->get('/api/v1/user',[
 ]);
 
 $obRouter->get('/api/v1/user/{codusuario}', [
+    'middleware' => [
+        'api'
+    ],
     function($request, $codusuario) {
         // Chama o método na sua API ou na sua lógica de negócio
         return new Response(200, Api\User::getUserByID($request, $codusuario), 'application/json');

@@ -28,20 +28,6 @@ class User extends Page
         return $itens;
     }
 
-    public static function NotPermissao($request)
-    {
-        $itens = '';
-        $result = EntityUser::getNotPermissao();
-        foreach ($result as $obUsuario) {
-            $itens .= View::render('admin/usuarios/semPermissao', [
-                'login' => $obUsuario['login'],
-                'nome_usuario' => $obUsuario['nome_usuario'],
-                'email_usuario' => $obUsuario['email_usuario'],
-            ]);
-        }
-        return $itens;
-    }
-
     /**
      * Metodo responsavel por trazer informacoes do usuario
      * @param Request
@@ -150,17 +136,30 @@ class User extends Page
         }
     }
 
+    public static function NotPermissao($request)
+    {
+        $itens = '';
+        $result = EntityUser::getNotPermissao();
+        foreach ($result as $obUsuario) {
+            $itens .= View::render('admin/usuarios/semPermissao', [
+                'login' => $obUsuario['login'],
+                'nome_usuario' => $obUsuario['nome_usuario'],
+                'email_usuario' => $obUsuario['email_usuario'],
+            ]);
+        }
+        return $itens;
+    }
+
     /**
      * Metodo responsavel por rederizar a view de Acesso
      */
     public static function getAcesso($request, $errorMessage = null)
     {
-        $status = !is_null($errorMessage) ? Alert::getError($errorMessage) : '';
         $content = View::render('admin/modules/user/acessoUser', [
             'nivel_acesso' => self::getUserItens($request),
             'usuarios' => self::getAll($request),
             'not-permissao' => self::NotPermissao($request),
-            'status' => $status,
+
         ]);
 
         return parent::getPanel('Permissões de Usuários', $content, 'user');

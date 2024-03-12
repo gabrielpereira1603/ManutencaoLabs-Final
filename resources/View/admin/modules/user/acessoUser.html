@@ -37,45 +37,11 @@
                     <th scope="col">Email</th>
                 </tr>
             </thead>
+            
             <tbody>
                 <legend>Lista de usuários sem permissão:</legend>
-                <tr>
-                    {{not-permissao}}
-                </tr>
+                {{not-permissao}}
             </tbody>
         </table>
     </div>
 </form>
-
-<script>
-    // $(document).ready(function () {
-    //     // Initialize Select2 with tagging enabled
-    //     $('#select-usuario').select2({
-    //         tags: true
-    //     });
-    // });
-    document.getElementById("select-usuario").addEventListener("change", function () {
-    var selectedUsuario = this.value;
-    var selectedAcesso = document.getElementById("select-acesso").value;
-
-    if(selectedUsuario === "") {
-        document.getElementById("login-user").value = "";
-    } else {
-        fetch('http://localhost/estudo-mvc/api/v1/user/' + selectedUsuario)
-.then(response => {
-    if (!response.ok) {
-        throw new Error('Erro na resposta da API');
-    }
-    return response.json();
-})
-.then(jsonResponse => {
-    console.log(jsonResponse); // Verifique o que está sendo retornado
-})
-.catch(error => {
-    console.error('Erro na solicitação AJAX:', error);
-});
-
-    }
-    });
-
-</script>
