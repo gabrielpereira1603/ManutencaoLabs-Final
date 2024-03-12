@@ -17,6 +17,10 @@ class Page {
             'label' => 'User',
             'link' => URL.'/admin/user'
         ],
+        'dashboard' =>[
+            'label' => 'Dashboard',
+            'link' => URL.'/admin/dashboard'
+        ],
         'relatorio'=> [
             'label'=> 'Relatório',
             'link'=> URL.'/relatorio'
@@ -65,6 +69,9 @@ class Page {
                     break;
                 case 'user':
                     $iconClass = 'bx bx-user';
+                    break;
+                case 'dashboard':
+                    $iconClass = 'bx bxs-dashboard';
                     break;
                 case 'termosDeUso':
                     $iconClass = 'bx bx-book';

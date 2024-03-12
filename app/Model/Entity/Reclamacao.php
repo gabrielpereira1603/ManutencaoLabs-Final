@@ -44,6 +44,25 @@ class Reclamacao {
         return (new Database('reclamacao'))->select($where, null, null,null, $fields, $join);
     }
 
+    /**
+     * Metodo que tras total de reclamacao por laboratorio
+     */
+    public static function reclamacaoPorLab() {
+        // Monta a string para os campos que queremos selecionar
+        $fields = 'laboratorio.codlaboratorio, laboratorio.numerolaboratorio, COUNT(reclamacao.codreclamacao) AS total_reclamacoes';
+    
+        // Monta a string para os joins das tabelas
+        $join = 'LEFT JOIN computador ON laboratorio.codlaboratorio = computador.codlaboratorio_fk
+                 LEFT JOIN reclamacao ON computador.codcomputador = reclamacao.codcomputador_fk';
+    
+        // Agrupa os resultados pelo número do laboratório
+        $groupBy = 'laboratorio.codlaboratorio, laboratorio.numerolaboratorio';
+    
+        // Chama o método select da classe Database com os parâmetros construídos
+        return (new Database('laboratorio'))->select(null, 'total_reclamacoes DESC', null, null, $fields, $join . ' GROUP BY ' . $groupBy);
+    }
+    
+    
     public static function getComponenteReclamacao($codcomputador) {
         $where = "reclamacao.codcomputador_fk = $codcomputador AND reclamacao.status = 'Em aberto'";
 
@@ -136,5 +155,6 @@ class Reclamacao {
     
         return (new Database('reclamacao'))->select($where, null, null, null, $fields, $join)->fetchAll();
     }
+
 
 }
