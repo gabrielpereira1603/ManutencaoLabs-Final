@@ -11,7 +11,7 @@ $(document).ready(function () {
        if(selectedUsuario === "") {
             document.getElementById("login-user").value = "";
         }else {
-            fetch('http://localhost/estudo-mvc/api/v1/user/' + selectedUsuario)
+            fetch('https://somosdevteam.com/SMI/api/v1/user/' + selectedUsuario)
             .then(response => response.json())
             .then(jsonResponse => {
                 // Verifica se o login está definido no objeto antes de atribuir ao campo
