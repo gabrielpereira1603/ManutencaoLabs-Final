@@ -108,7 +108,7 @@ class User
       'email_usuario' => $this->email_usuario,
       'senha' => $this->senha,
       'nome_usuario' => $this->nome_usuario,
-      'nivel_acesso_fk' => $this->nivel_acesso_fk
+      'nivelacesso_fk' => $this->nivel_acesso_fk
     ]);
     return true;
   }
@@ -164,8 +164,21 @@ class User
   /**
    * Metodo reponsavel por atualizar as informacoes do usuario no banco 
    */
-  public static function setUpdateUser($request) 
+  public static function setUpdateUser($login, $nome, $email) 
   {
+    $where = "login = '$login'";
 
+    $values = [
+        'nome_usuario' => $nome,
+        'email_usuario' => $email
+    ];
+
+    $result = (new Database('usuario'))->update($where, $values);
+
+    if ($result) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

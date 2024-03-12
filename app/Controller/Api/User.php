@@ -26,6 +26,7 @@ class User extends Api {
         while($obUser = $results->fetchObject(EntityUser::class)){
             $itens[] = [
                 'nome_usuario' => $obUser->nome_usuario,
+                'email_usuario' => $obUser->email_usuario,
                 'tipo_acesso' => $obUser->tipo_acesso,
                 'login' => $obUser->login,
             ];

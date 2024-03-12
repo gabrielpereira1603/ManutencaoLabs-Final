@@ -22,3 +22,8 @@ $(document).ready(function () {
          }
     });
 });
+// ROTA DA API ONLINE
+// https://somosdevteam.com/SMI/api/v1/user/
+
+// ROTA DA API LOCAL
+// http://localhost/estudo-mvc/api/v1/user/'

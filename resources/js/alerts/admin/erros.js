@@ -37,6 +37,9 @@ const messageMap = {
     'apiError': { messageType: 'error', messageText: 'Perca da conexão com a API!' },
     'prenchaLogin': { messageType: 'error', messageText: 'Prencha o login para alterar as informações!'}, 
     'loginError': { messageType: 'error', messageText: 'Usuário ou Senha inválidos!'}, 
+    'alterarUser': { messageType: 'success', messageText: 'Informações de usuário alteradas com sucesso!'}, 
+    'NotalterarUser': { messageType: 'error', messageText: 'Error ao alterar as informações do usuário!'}, 
+    'userNotFound': { messageType: 'error', messageText: 'Error ao encontrar o usuário!'}, 
 };
 
 // Verifica os parâmetros de URL e exibe o alerta correspondente

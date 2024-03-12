@@ -10,11 +10,16 @@
             <legend>Prencha as informações que deseja alterar:</legend>
         </div>  
 
-        <select class="form-select mb-5" aria-label="Default select example" name="nome" id="select-usuario" required>
+        <select class="form-select mb-5" aria-label="Default select example" name="nome" id="select-alterarUser" required>
             <option value="">Selecione um Usuário</option>
             {{usuarios}}
         </select>
 
+        <div class="form-floating mb-3 mt-3">
+            <input type="text" class="form-control" id="nome-input" name="nome-input" placeholder="Seu nome">
+            <label for="nome-input">Nome:</label>
+        </div>
+ 
         <div class="form-floating mb-3 mt-3">
             <input type="text" class="form-control" id="email" name="email" placeholder="example@exemple.com">
             <label for="email">Email:</label>
@@ -72,12 +77,3 @@
         </div>
     </div>
 </form>
-
-<script>
-    $(document).ready(function () {
-        // Initialize Select2 with tagging enabled
-        $('#select-usuario').select2({
-            tags: true
-        });
-    });
-</script>

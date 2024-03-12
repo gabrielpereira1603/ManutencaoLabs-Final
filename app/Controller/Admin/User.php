@@ -220,24 +220,29 @@ class User extends Page
     public static function setUpdate($request)
     {
         $postVars = $request->getPostVars();
-        $nome = $postVars['nome'] ?? '';    
+        $nome = $postVars['nome-input'] ?? '';    
         $email = $postVars['email'] ?? '';
         $login = $postVars['login'] ?? '';
-
+    
         if($login == null) {
             $request->getRouter()->redirect('/admin/user/update?success=prenchaLogin');
         }
         
+        // Verifica se o usuário existe antes de tentar atualizá-lo
         $codUsuario = EntityUser::getUserByLogin($login);
-        
-
-        $obUpdateUser = new EntityUser();
-
-        $obUpdateUser->nome_usuario = $nome;
-        $obUpdateUser->email_usuario = $email;
-        $obUpdateUser->login = $login;
-        $result = EntityUser::setUpdateUser($request);
-
+        if ($codUsuario) {
+            $result = EntityUser::setUpdateUser($login, $nome, $email);
+            if ($result) {
+                // Atualização bem-sucedida, lidar de acordo (por exemplo, redirecionar para uma página de sucesso)
+                $request->getRouter()->redirect('/admin/user/update?success=alterarUser');
+            } else {
+                // Falha na atualização, lidar de acordo (por exemplo, redirecionar para uma página de erro)
+                $request->getRouter()->redirect('/admin/user/update?error=NotalterarUser');
+            }
+        } else {
+            // O usuário não existe, lidar de acordo (por exemplo, redirecionar para uma página de erro)
+            $request->getRouter()->redirect('/admin/user/update?error=userNotFound');
+        }
     }
     
 }
