@@ -40,6 +40,10 @@ const messageMap = {
     'alterarUser': { messageType: 'success', messageText: 'Informações de usuário alteradas com sucesso!'}, 
     'NotalterarUser': { messageType: 'error', messageText: 'Error ao alterar as informações do usuário!'}, 
     'userNotFound': { messageType: 'error', messageText: 'Error ao encontrar o usuário!'}, 
+    'reclamacaoUpdate': { messageType: 'success', messageText: 'Reclamação alterada com sucesso!'}, 
+    'reclamacaoUpdateNot': { messageType: 'error', messageText: 'Error ao alterar a reclamação!'}, 
+    'delete': { messageType: 'success', messageText: 'Reclamação excluida com sucesso!'}, 
+    'deleteError': { messageType: 'error', messageText: 'Error ao excluir a reclamação!'}, 
 };
 
 // Verifica os parâmetros de URL e exibe o alerta correspondente

@@ -34,7 +34,7 @@ class Manutencao extends Page {
             $content = '';
             foreach ($results as $foto) {
                 // Convert BLOB data to Base64
-                $base64Image = base64_encode($foto['foto_reclamacao']);
+                $base64Image = base64_encode($foto['foto']);
         
                 $content .= View::render('admin/foto/item', [
                     'foto_url' => $base64Image,

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     if(toggle && nav && bodypd && headerpd){
       toggle.addEventListener('click', ()=>{
         // show navbar
-        nav.classList.toggle('show')
+        nav.classList.toggle('show2')
         // change icon
         toggle.classList.toggle('bx-x')
         // add padding to body
@@ -50,7 +50,7 @@ logoutLink.addEventListener('click', function(event) {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, logout!"
+        confirmButtonText: "Sim, Sair!"
     }).then((result) => {
         // Se o usuário confirmar o logout
         if (result.isConfirmed) {

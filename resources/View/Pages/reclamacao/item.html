@@ -1,5 +1,5 @@
 <tr>
-   <td>{{codreclamacao}}</td>
+    <td>{{codreclamacao}}</td>
     <td>{{descricao}}</td>
     <td>{{status}}</td>
     <td>{{patrimonio}}</td>
@@ -8,52 +8,48 @@
     <td>{{nome_componente}}</td>
     <td>{{datahota_reclamacao}}</td>
     <td>
-        <input type="hidden" name="codreclamacao" value="{{codreclamacao}}">
-        <input type="hidden" name="numerolaboratorio" value="{{numerolaboratorio}}">
-        <input type="hidden" name="patrimonio" value="{{patrimonio}}">
-        <button class="btn-editar" data-target="#modalEditarReclamacao{{codreclamacao}}">
+        <button class="btn-editar" onclick="openPopup('modalEditarReclamacao{{codreclamacao}}')">
             <i class="bi bi-pencil-square" style="color: blue; font-size: 1.3rem;"></i>
-        </button>       
-        <button class="btn-excluir">
-            <i class='bx bx-trash' style="color: red; font-size: 1.5rem;"></i>
-        </button>                                
+        </button>    
+        <form method="post" action="{{URL}}/reclamacoesAbertas/delete"> 
+            <input type="hidden" name="codreclamacao" value="{{codreclamacao}}">
+            <input type="hidden" name="codcomputador" value="{{codcomputador}}">
+            <button class="btn-excluir" type="submit">
+                <i class='bx bx-trash' style="color: red; font-size: 1.5rem;"></i>
+            </button>   
+        </form>                             
     </td> 
 </tr>   
 
-<!-- Modal de Edição de Reclamação -->
-<div id="modalEditarReclamacao{{codreclamacao}}" class="modal">
-  <div class="modal-content">
-    <!-- Conteúdo do Modal -->
-    <!-- Aqui você pode adicionar os campos de edição da reclamação -->
-    <button class="close">Fechar</button>
-  </div>
+<div class="modal fade" id="editarComponentesModal" tabindex="-1" aria-labelledby="editarComponentesModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarComponentesModalLabel">Editar Reclamação</h5>
+                <button type="button" class="btn-close btn-cancelar" data-bs-dismiss="modal" aria-label="Fechar"></button>
+            </div>
+            <div class="modal-body" >
+                <form id="formEditarLembrete" method="post">
+                    <input type="hidden" name="codreclamacao" value="{{codreclamacao}}">
+                    <legend>Componentes Selecionados:</legend>
+                    <div class="d-flex justify-content-around row m-3" id="componentesCheckboxContainer" >
+                        <!-- Os componentes gerados dinamicamente serão adicionados aqui -->
+                    </div>
+
+                     <!-- Input hidden para armazenar os IDs dos componentes selecionados -->
+                    <input type="hidden" id="componentesSelecionados" name="componentesSelecionados" value="">
+
+                    <div class="mb-3">
+                        <label for="editarDescricao" class="form-label">Descrição</label>
+                        <textarea class="form-control" name="editarDescricao" id="editarDescricao" rows="5" placeholder="Descreva sua reclamação">{{descricao}}</textarea>
+                    </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-cancelar" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success " id="salvarEdicao">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function(event) {
-  // Função para abrir e fechar o modal
-  const toggleModal = (modalId) => {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-      modal.classList.toggle('show');
-    }
-  }
-
-  // Adiciona um evento de clique aos botões de edição
-  const editarButtons = document.querySelectorAll('.btn-editar');
-  editarButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const targetModalId = this.getAttribute('data-target');
-      toggleModal(targetModalId);
-    });
-  });
-
-  // Adiciona um evento de clique ao botão de fechar do modal
-  const closeModalButtons = document.querySelectorAll('.modal .close');
-  closeModalButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const modalId = this.closest('.modal').getAttribute('id');
-      toggleModal(modalId);
-    });
-  });
-});
-</script>

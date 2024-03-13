@@ -36,6 +36,7 @@ class Manutencao {
     public $codreclamacao_fk;
 
 
+
     public function cadastrarManutencao($codcomputador) {
         // Obtenha a datahora atual como uma string no formato desejado
         
@@ -49,10 +50,11 @@ class Manutencao {
             'codusuario_fk' => $this->codusuario_fk,
             'codreclamacao_fk' => $this->codreclamacao_fk
         ]);
+        
 
         $computadorDatabase = new Database('computador');
         $where = $codcomputador;
-        $value = 2;
+        $value = 1;
         $computadorDatabase->updateComputerSituation($where, $value);
 
         $reclamacaoDatabase = new Database('reclamacao');
@@ -68,6 +70,12 @@ class Manutencao {
         $datahora_fimreclamacao = strtotime($datahoraFormatada);
         $diferenca_dias = ($datahora_fimreclamacao - $datahora_reclamacao) / (60 * 60 * 24); // Calcula a diferença em dias
 
+        $reclamacao = new Reclamacao();
+        $prazoReclamacaoObject = $reclamacao->getPrazoReclamacao($this->codreclamacao_fk);
+        $prazoReclamacaoArray = (array) $prazoReclamacaoObject; // Convert object to array
+        $prazoReclamacao = $prazoReclamacaoArray['prazo_reclamacao'];
+        
+        
         if ($diferenca_dias > 1) {
             // Se a diferença for maior que 1 dia, atualiza o status para "Fechada em atraso"
             $reclamacaoDatabase->updateStatusReclamacao($where, 'Fechada em atraso');

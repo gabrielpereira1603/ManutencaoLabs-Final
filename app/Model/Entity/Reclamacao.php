@@ -18,6 +18,11 @@ class Reclamacao {
     public $codlaboratorio_fk;
     public $codusuario_fk;
 
+    public static function getPrazoReclamacao($codreclamacao) {
+        $fields = "reclamacao.prazo_reclamacao";
+        return (new Database('reclamacao'))->select(null,null,null,null,$fields,null)->fetchObject();
+    }
+
     /**
      * Metodo responsavel por trazer as reclamacoes realizadas pelo o usuario que estao em abertas
      */
@@ -38,7 +43,7 @@ class Reclamacao {
         
         // Ajuste aqui para usar GROUP_CONCAT
         $fields = 'reclamacao.*, usuario.login, usuario.nome_usuario, usuario.email_usuario, 
-                    laboratorio.numerolaboratorio, computador.patrimonio, 
+                    laboratorio.numerolaboratorio, computador.patrimonio, computador.codcomputador, 
                     GROUP_CONCAT(componente.nome_componente SEPARATOR \', \') AS componentes';
         
         return (new Database('reclamacao'))->select($where, null, null,null, $fields, $join);
@@ -120,7 +125,7 @@ class Reclamacao {
     public function cadastrarReclamacao($componente, $foto) {
         // Define a data atual
         $this->datahora_reclamacao = date('Y-m-d H:i:s');
-    
+        
         // Insere a reclamação no banco de dados
         $database = new Database('reclamacao');
         $this->codreclamacao = $database->insert([
@@ -137,14 +142,10 @@ class Reclamacao {
         foreach ($foto as $fotos) {
             // Salvar a foto no banco de dados
             $codFoto = $databaseFoto->insert([
-                'foto_reclamacao' => $fotos
+                'foto' => $fotos,
+                'codreclamacao_fk' => $this->codreclamacao
             ]);
-            // Vincular a foto à reclamação na tabela reclamacao_foto
-            $databaseReclamacaoFoto = new Database('reclamacao_foto');
-            $databaseReclamacaoFoto->insert([
-                'codreclamacao_fk' => $this->codreclamacao,
-                'codfoto_fk' => $codFoto
-            ]);
+
         }
     
         // INSERE OS COMPONENTES NA TABELA RECLAMACAO_COMPONENTE
@@ -154,7 +155,7 @@ class Reclamacao {
         // Atualiza o tipo de situação do computador para 3
         $computadorDatabase = new Database('computador');
         $where = $this->codcomputador_fk;
-        $values = 1;
+        $values = 2;
         $computadorDatabase->updateComputerSituation($where, $values);
     
         return true;
@@ -174,5 +175,47 @@ class Reclamacao {
         return (new Database('reclamacao'))->select($where, null, null, null, $fields, $join)->fetchAll();
     }
 
+    public static function UpdateReclamacao($codreclamacao, $descricao, $componente)
+    {
+        // Atualiza a descrição da reclamação
+        $dbReclamacao = new Database('reclamacao');
+        $values = ['descricao' => $descricao];
+        $where = "codreclamacao = $codreclamacao";
+        $dbReclamacao->update($where, $values);
+
+        // Remove todos os registros antigos da tabela de associação
+        $dbReclamacaoComponente = new Database('reclamacao_componente');
+        $where2 = "codreclamacao_fk = $codreclamacao";
+        $dbReclamacaoComponente->delete($where2);
+        
+        // INSERE OS COMPONENTES NA TABELA RECLAMACAO_COMPONENTE
+        $reclamacaoComponente = new ReclamacaoComponente(); // Instanciando a classe ReclamacaoComponente
+        $reclamacaoComponente->setReclamacaoComponente($componente, $codreclamacao); // Chamando o método para inserir os componentes
+
+        return true; // Retorna true se a atualização for bem-sucedida
+    }
+
+    public static function deleteReclamacao($codreclamacao,$codcomputador) {
+        // Remove todos os registros antigos da tabela de associação
+        $dbReclamacaoComponente = new Database('reclamacao_componente');
+        $where2 = "codreclamacao_fk = $codreclamacao";
+        $dbReclamacaoComponente->delete($where2);
+
+        $dbfoto = new Database('foto');
+        $wherefoto = "codreclamacao_fk = $codreclamacao";
+        $dbfoto->delete($wherefoto);
+        
+        $db = new Database('reclamacao');
+        $where = "codreclamacao = $codreclamacao";
+        $db->delete($where);
+
+        // Atualiza o tipo de situação do computador para 3
+        $computadorDatabase = new Database('computador');
+        $where = $codcomputador;
+        $values = 1;
+        $computadorDatabase->updateComputerSituation($where, $values);
+        return true;
+    }
+    
 
 }

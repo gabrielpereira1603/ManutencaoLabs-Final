@@ -13,3 +13,6 @@ include __DIR__ .'/api/v1/reclamacao.php';
 
 //INCLUI AS ROTAS DE MANUTENCAO
 include __DIR__ .'/api/v1/manutencao.php';
+
+//INCLUI AS ROTAS DE MANUTENCAO
+include __DIR__ .'/api/v1/componente.php';

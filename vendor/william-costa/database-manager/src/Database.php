@@ -221,6 +221,7 @@ class Database{
     //MONTA A QUERY
     $query = 'DELETE FROM '.$this->table.' WHERE '.$where;
 
+    echo $query."<br>";
     //EXECUTA A QUERY
     $this->execute($query);
 

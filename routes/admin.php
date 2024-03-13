@@ -17,3 +17,6 @@ include __DIR__ .'/admin/user.php';
 
 //INCLUI AS ROTAS DE dashboard
 include __DIR__ .'/admin/dashboard.php';
+
+//INCLUI AS ROTAS DE dashboard
+include __DIR__ .'/admin/relatorio.php';

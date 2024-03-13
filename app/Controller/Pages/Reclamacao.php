@@ -46,6 +46,7 @@ class Reclamacao extends Page {
                 'email_usuario' => $obReclamacao->email_usuario,
                 'numerolaboratorio' => $obReclamacao->numerolaboratorio,
                 'patrimonio' => $obReclamacao->patrimonio,
+                'codcomputador' => $obReclamacao->codcomputador,
                 'nome_componente' => $obReclamacao->componentes,
             ]);
         }
@@ -68,6 +69,31 @@ class Reclamacao extends Page {
         
         //RETORNA A PAGINA COMPLETA
         return parent::getPage('Reclamação',$content);
+    }
+
+    public static function setUpdateReclamacao($request) {
+        $postVars = $request->getPostVars();
+        $codreclamacao = $postVars['codreclamacao'] ?? '';
+        $descricao = $postVars['editarDescricao'] ?? '';
+        $componente = $postVars['componentesSelecionados'] ?? [];
+        
+        if($result = EntityReclamacao::UpdateReclamacao($codreclamacao,$descricao,$componente)){
+            $request->getRouter()->redirect('/reclamacoesAbertas?success=reclamacaoUpdate');
+        }else {
+            $request->getRouter()->redirect('/reclamacoesAbertas?error=reclamacaoUpdateNot');
+        }
+    }
+
+    public static function setDeleteReclamacao($request) {
+        $postVars = $request->getPostVars();
+        $codreclamacao = $postVars['codreclamacao'] ?? '';
+        $codcomputador = $postVars['codcomputador'] ?? '';
+
+        if($result = EntityReclamacao::deleteReclamacao($codreclamacao,$codcomputador)){
+            $request->getRouter()->redirect('/reclamacoesAbertas?success=delete');
+        }else {
+            $request->getRouter()->redirect('/reclamacoesAbertas?error=deleteError');
+        }
     }
 
     /**

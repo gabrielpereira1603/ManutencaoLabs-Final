@@ -22,7 +22,6 @@ class View {
     //@param string view
     //@return string
     // private static function getConteudoView($view){
-        
     //     $file = __DIR__ .'/../../resources/view/'.$view.'.html';
     //     return file_exists($file) ? file_get_contents($file) :'';
     // }
