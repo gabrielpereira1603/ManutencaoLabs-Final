@@ -2,6 +2,8 @@
 
 require __DIR__ ."/../vendor/autoload.php";
 
+//DEPENDENCIA DO DOMPDF
+use Dompdf\Dompdf;
 use \app\Utils\View;
 use \WilliamCosta\DotEnv\Environment;
 use \WilliamCosta\DatabaseManager\Database;

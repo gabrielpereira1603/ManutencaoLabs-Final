@@ -1,0 +1,86 @@
+<div class="title">
+    <h2>Relatório de Manutenções</h2>
+</div>
+
+<form method="post" class="form-group">
+
+    <div class="novo-user">
+        <div class="title-user">
+            <legend>Filtre como desejado para gerar o relatório<legend>
+        </div>   
+        <div class="form-floating mb-3">
+            <select class="form-select" aria-label="Usuário" name="usuario" id="select-user-relatorioManutencao">
+                <option value="">Selecionar um usuário</option>
+                <option value="-1">Todos os usuários selecionados</option>
+                {{user}}
+            </select>
+        </div>
+    
+        <div class="form-floating mb-3">
+            <select class="form-select" aria-label="Laboratório" name="laboratorio" id="laboratorio">
+                <option value="">Selecionar um laboratório</option>
+                <option value="-1">Todos os laboratórios</option>
+                {{laboratorio}}
+            </select>
+            <label for="laboratorio">Laboratório:</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select class="form-select" aria-label="Computador" name="computador" id="computador">
+                <option value="">Selecione um laboratório primeiro</option>
+            </select>
+            <label for="computador">Computador:</label>
+        </div>
+        
+    
+        <div class="form-floating mb-3">
+            <legend>Selecione o Intervalo de Datas</legend>
+            <fieldset style="border: 2px solid rgb(73, 72, 72); border-radius: 20px;">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="dataInicio">Data de Início:</label>
+                            <input type="date" class="form-control" id="dataInicio" name="dataInicio" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="dataFim">Data de Fim:</label>
+                            <input type="date" class="form-control" id="dataFim" name="dataFim" required>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        
+    
+        <div class="d-grid gap-2 mt-4">
+            <button class="btn btn-warning" type="submit" name="criaruser">Gerar Relatório</button>
+        </div>
+        <hr>
+    </div>
+
+    <div class="user-info">
+        <div class="title-info">
+            <legend>Informações sobre cadastro de usuário</legend>
+        </div>
+
+        <div class="text-info">
+            <legend>Nome:</legend>
+            <p>É necessario que preencha o campo de nome para que tenha o controle de quem realizou cada serviço.</p>
+            
+            <legend>E-mail:</legend>
+            <p> 
+                O E-mail não sera solicitado para que o usuário faça login, porem será utilizado para a redefinição de senha.<br>
+                Certifique-se de cadastrar um e-mail valido e que voçê tenha acesso.
+            </p>
+
+            <legend>Login e Senha:</legend>
+            <p> 
+                O sistema de login serve para que voçê possa registrar um novo usuário para acessar o sistema.<br>
+                Lembre-se de colocar credenciais de login que você vá se lembrar.<br>
+                Caso você não lembre suas crendenciais sera possivel a solicitacão de redefinição de senha pelo seu e-mail cadastrado.
+            </p>
+        </div>
+    </div>
+</form>

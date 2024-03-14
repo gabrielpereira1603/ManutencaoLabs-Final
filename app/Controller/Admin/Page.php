@@ -23,7 +23,7 @@ class Page {
         ],
         'relatorio'=> [
             'label'=> 'Relatório',
-            'link'=> URL.'/relatorio'
+            'link'=> URL.'/admin/relatorio'
         ],
         'termosDeUso' => [
             'label' => 'Termos De Uso',

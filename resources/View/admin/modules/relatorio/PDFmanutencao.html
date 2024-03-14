@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Manutenção</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            max-width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            word-wrap: break-word;
+        }
+
+        .img-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .img-container img {
+            width: 50px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body> 
+    <table>
+        <thead>
+            <tr>
+                <th colspan="10">
+                    <div class="img-container">
+                        <img src="https://raw.githubusercontent.com/gabrielpereira1603/ManutencaoLabs-Final/main/resources/images/SMI-LOGO-BLACK-TRANPARENTE-250PX.png" alt="" class="img">   
+                        <h1 class="title">Somos Dev's - Relatório de Manutenções</h1>
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição Manutenção</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Patrimônio</th>
+                <th>Laboratório</th>
+                <th>Componentes</th>
+                <th>Aluno</th>
+                <th>RM</th>
+                <th>Data Reclamação</th>
+            </tr>
+        </thead>
+        <tbody style="text-align: center;">      
+            {{itens}}
+        </tbody>
+    </table>
+</body>
+</html>

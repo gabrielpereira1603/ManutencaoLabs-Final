@@ -121,6 +121,13 @@ class User
     return (new Database('usuario'))->select()->fetchAll();
   }
 
+  public static function getAllUserAdmin()
+  {
+    $where = "nivelacesso_fk = 3";
+    $join = 'INNER JOIN nivel_acesso ON usuario.nivelacesso_fk = nivel_acesso.codnivel_acesso';
+    return (new Database('usuario'))->select($where,null,null,null,'*',$join)->fetchAll();
+  }
+
   /**
    * Metodo responsavel por trazer os usuario sem permissao no sistema
    * 
