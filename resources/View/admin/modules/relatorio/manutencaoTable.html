@@ -40,25 +40,28 @@
                         <th>Aluno</th>
                         <th>RM</th>
                         <th>Data Reclamação</th>
-                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody style="text-align: center;">      
                     {{table-itens}}
                 </tbody>
             </table>
+            <form action="{{URL}}/admin/relatorio/PDF" method="post">
+
+                <div class="d-grid gap-2 mt-4">
+                    <button class="btn btn-warning" type="submit" name="criaruser">Baixar Relatório PDF</button>
+                </div>
+                <input type="hidden" name="usuario" value="{{usuario}}">
+                <input type="hidden" name="laboratorio" value="{{laboratorio}}">
+                <input type="hidden" name="computador" value="{{computador}}">
+                <input type="hidden" name="dataInicio" value="{{dataInicio}}">
+                <input type="hidden" name="dataFim" value="{{dataFim}}">
+            </form>
         </div>
     </div>
         
     
-<form action="{{URL}}/admin/relatorio/PDF" method="post">
-    <input type="hidden" name="usuario" value="{{usuario}}">
-    <input type="hidden" name="laboratorio" value="{{laboratorio}}">
-    <input type="hidden" name="computador" value="{{computador}}">
-    <input type="hidden" name="dataInicio" value="{{dataInicio}}">
-    <input type="hidden" name="dataFim" value="{{dataFim}}">
-    <button type="submit">teste</button>
-</form>
+
     
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
