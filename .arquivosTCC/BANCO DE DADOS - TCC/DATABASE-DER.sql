@@ -1,3 +1,10 @@
+use manutencaolabs;
+CREATE TABLE instituicao (
+	codinstituicao INT AUTO_INCREMENT PRIMARY KEY,
+    nome_instituicao VARCHAR(100),
+    foto_instituicao LONGBLOB
+);
+
 CREATE TABLE componente (
     codcomponente INT AUTO_INCREMENT PRIMARY KEY,
     nome_componente VARCHAR(80) NOT NULL
@@ -5,7 +12,7 @@ CREATE TABLE componente (
 
 CREATE TABLE laboratorio (
     codlaboratorio INT AUTO_INCREMENT PRIMARY KEY,
-    numerolaboratorio VARCHAR(100) NOT NULL
+    numerolaboratorio INT NOT NULL
 );
 
 CREATE TABLE situacao (
@@ -29,13 +36,13 @@ CREATE TABLE nivel_acesso (
 
 CREATE TABLE usuario (
     codusuario INT AUTO_INCREMENT PRIMARY KEY,
-    login NUMERIC DEFAULT NULL,
-    senha VARCHAR(250) DEFAULT NULL,
+    login VARCHAR(250) NOT NULL,
+    senha VARCHAR(250) NOT NULL,
     nome_usuario VARCHAR(100) NOT NULL,
-    email_usuario VARCHAR(105) DEFAULT NULL,
-    reset_token VARCHAR(100) DEFAULT NULL,
-    token VARCHAR(255) DEFAULT NULL,
-    reset_expires TIMESTAMP DEFAULT NULL,
+    email_usuario VARCHAR(105) NOT NULL,
+    reset_token VARCHAR(100),
+    token VARCHAR(255),
+    reset_expires TIMESTAMP,
     nivelacesso_fk INT NOT NULL,
     FOREIGN KEY (nivelacesso_fk) REFERENCES nivel_acesso(codnivel_acesso)
 );
@@ -43,9 +50,10 @@ CREATE TABLE usuario (
 CREATE TABLE reclamacao (
     codreclamacao INT AUTO_INCREMENT PRIMARY KEY,
     descricao VARCHAR(2000) NOT NULL,
+    prazo_reclamacao INT NOT NULL DEFAULT 1,
     status VARCHAR(20) NOT NULL DEFAULT 'aberta',
-    datahora_reclamacao TIMESTAMP DEFAULT NULL,
-    datahora_fimreclamacao TIMESTAMP DEFAULT NULL,
+    datahora_reclamacao TIMESTAMP,
+    datahora_fimreclamacao TIMESTAMP,
     codcomputador_fk INT NOT NULL,
     codlaboratorio_fk INT NOT NULL,
     codusuario_fk INT NOT NULL,
@@ -56,13 +64,15 @@ CREATE TABLE reclamacao (
 
 CREATE TABLE foto (
     codfoto INT AUTO_INCREMENT PRIMARY KEY,
-    foto_reclamacao varchar(255)
+    foto LONGBLOB,
+	codreclamacao_fk INT NOT NULL,
+    FOREIGN KEY (codreclamacao_fk) REFERENCES reclamacao(codreclamacao)
 );
 
 CREATE TABLE manutencao (
     codmanutencao INT AUTO_INCREMENT PRIMARY KEY,
     descricao_manutencao VARCHAR(2000) NOT NULL,
-    datahora_manutencao TIMESTAMP DEFAULT NULL,
+    datahora_manutencao TIMESTAMP,
     codusuario_fk INT NOT NULL,
     codreclamacao_fk INT NOT NULL,
     FOREIGN KEY (codreclamacao_fk) REFERENCES reclamacao(codreclamacao),
@@ -75,12 +85,4 @@ CREATE TABLE reclamacao_componente (
     PRIMARY KEY (codreclamacao_fk, codcomponente_fk),
     FOREIGN KEY (codreclamacao_fk) REFERENCES reclamacao(codreclamacao),
     FOREIGN KEY (codcomponente_fk) REFERENCES componente(codcomponente)
-);
-
-CREATE TABLE reclamacao_foto (
-    codreclamacao_fk INT NOT NULL,
-    codfoto_fk INT NOT NULL,
-    PRIMARY KEY (codreclamacao_fk, codfoto_fk),
-    FOREIGN KEY (codreclamacao_fk) REFERENCES reclamacao(codreclamacao),
-    FOREIGN KEY (codfoto_fk) REFERENCES foto(codfoto)
 );

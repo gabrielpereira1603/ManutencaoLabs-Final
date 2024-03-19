@@ -1,7 +1,7 @@
 // Função para abrir o modal de edição de componentes
 function openComponentesModal(codReclamacao, componentesSelecionados) {
     // Realiza o fetch para obter todos os componentes
-    fetch('http://localhost/estudo-mvc/api/v1/Componente')
+    fetch('https://somosdevteam.com/SMI/api/v1/Componente')
         .then(response => response.json())
         .then(data => {
             // Limpa o container de checkboxes
@@ -47,7 +47,7 @@ $('.btn-editar').on('click', function () {
 const codReclamacao = $(this).closest('tr').find('td:first').text();
 
 // Obtém os componentes selecionados pelo usuário na reclamação
-fetch(`http://localhost/estudo-mvc/api/v1/ComponenteReclamacao/${codReclamacao}`)
+fetch(`https://somosdevteam.com/SMI/api/v1/ComponenteReclamacao/${codReclamacao}`)
     .then(response => response.json())
     .then(data => {
         const componentesSelecionados = data.map(componente => componente.codcomponente);
