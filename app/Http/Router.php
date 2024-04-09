@@ -64,6 +64,7 @@ class Router {
  
         //DEFINE O PREFIXO
         $this->prefix = $parseUrl['path'] ?? '';
+        var_dump($this->prefix);
     }
     
     /**
@@ -97,9 +98,10 @@ class Router {
         
         //PADRAO DE VALIDACAO DA URL
         $patternRoute = '/^'.str_replace('/','\/',$route).'$/';
-        
+        var_dump($patternRoute);
         //ADICIONA A ROTA DENTRO DA CLASSA
         $this->routes[$patternRoute][$method] = $params;
+      
     }
 
     /**
