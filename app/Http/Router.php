@@ -64,7 +64,6 @@ class Router {
  
         //DEFINE O PREFIXO
         $this->prefix = $parseUrl['path'] ?? '';
-        var_dump($this->prefix);
     }
     
     /**
