@@ -11,9 +11,8 @@ $(document).ready(function () {
         if (selectedLaboratorio === "-1") {
             $('#computador').html("<option value='-1' selected>Todos os computadores</option>");
         } else if (selectedLaboratorio >= 1) {
-            // /api/v1/computador/{codlaboratorio}
             // Carregue os computadores do laboratório selecionado
-            fetch('http://localhost/ManutencaoLabs-Final/api/v1/computador/' + selectedLaboratorio)
+            fetch('https://somosdevteam.com/SMI/api/v1/computador/' + selectedLaboratorio)
             .then(response => response.json())
             .then(jsonResponse => {
                 var selectComputador = $('#computador');

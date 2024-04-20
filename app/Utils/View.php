@@ -18,6 +18,22 @@ class View {
         self::$vars = $vars;
     }
 
+    // Método para retornar o conteúdo de uma view
+    // @param string $view
+    // @return string
+    private static function getConteudoView($view){
+        $local1 = __DIR__ .'/../../resources/view/'.$view.'.html';
+        $local2 = '/home2/somos411/public_html/SMI/resources/View/'.$view.'.html';
+
+        if (file_exists($local1)) {
+            return file_get_contents($local1);
+        } elseif (file_exists($local2)) {
+            return file_get_contents($local2);
+        } else {
+            return '';
+        }
+    }
+
     //metodo para retornar o conteudo de uma view
     //@param string view
     //@return string
@@ -26,10 +42,10 @@ class View {
     //     return file_exists($file) ? file_get_contents($file) :'';
     // }
 
-    private static function getConteudoView($view){
-        $file = '/home2/somos411/public_html/SMI/resources/View/'.$view.'.html';
-        return file_exists($file) ? file_get_contents($file) :'';
-    }
+    // private static function getConteudoView($view){
+    //     $file = '/home2/somos411/public_html/SMI/resources/View/'.$view.'.html';
+    //     return file_exists($file) ? file_get_contents($file) :'';
+    // }
 
     //Metodo responsavel por retorna o conteudo renderizado da view
     //@param string view
