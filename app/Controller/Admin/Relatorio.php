@@ -90,13 +90,20 @@ class Relatorio extends Page {
      * Metodo responsavel por gerar o relatorio
      */
     public static function getRelatorioManutencaoTable($request) {
-        // Obtém as informações da requisição
         $postVars = $request->getPostVars();
-        $usuario = $postVars['usuario'] ?? '';
-        $laboratorio = $postVars['laboratorio'] ?? '';
-        $computador = $postVars['computador'] ?? '';
-        $dataInicio = $postVars['dataInicio'] ?? '';
-        $dataFim = $postVars['dataFim'] ?? '';
+        // Verificar se algum campo está vazio
+        if (empty($postVars['usuario']) || empty($postVars['laboratorio']) || empty($postVars['computador']) || empty($postVars['dataInicio']) || empty($postVars['dataFim'])) {
+            // Redirecionar de volta à página de relatório com uma mensagem de erro
+            $request->getRouter()->redirect('/admin/relatorio/manutencao?error=camposVazios');
+            return; // Interromper a execução do método
+        }
+
+        // Se todos os campos estiverem preenchidos, continuar o processamento
+        $usuario = $postVars['usuario'];
+        $laboratorio = $postVars['laboratorio'];
+        $computador = $postVars['computador'];
+        $dataInicio = $postVars['dataInicio'];
+        $dataFim = $postVars['dataFim'];
 
         $obManutencao = new EntityManutencao();
         $content = '';
@@ -129,11 +136,19 @@ class Relatorio extends Page {
 
     public static function setRelatorioManutencao($request) {
         $postVars = $request->getPostVars();
-        $usuario = $postVars['usuario'] ?? '';
-        $laboratorio = $postVars['laboratorio'] ?? '';
-        $computador = $postVars['computador'] ?? '';
-        $dataInicio = $postVars['dataInicio'] ?? '';
-        $dataFim = $postVars['dataFim'] ?? '';
+        // Verificar se algum campo está vazio
+        if (empty($postVars['usuario']) || empty($postVars['laboratorio']) || empty($postVars['computador']) || empty($postVars['dataInicio']) || empty($postVars['dataFim'])) {
+            // Redirecionar de volta à página de relatório com uma mensagem de erro
+            $request->getRouter()->redirect('/admin/relatorio/manutencao?error=camposVazios');
+            return; // Interromper a execução do método
+        }
+
+        // Se todos os campos estiverem preenchidos, continuar o processamento
+        $usuario = $postVars['usuario'];
+        $laboratorio = $postVars['laboratorio'];
+        $computador = $postVars['computador'];
+        $dataInicio = $postVars['dataInicio'];
+        $dataFim = $postVars['dataFim'];
 
         $ConteudoPDF = self::getDadosPDFManutencao($usuario,$laboratorio,$computador,$dataInicio,$dataFim);
 

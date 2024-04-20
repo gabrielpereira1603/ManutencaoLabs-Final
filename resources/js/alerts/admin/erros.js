@@ -37,6 +37,7 @@ const messageMap = {
     'apiError': { messageType: 'error', messageText: 'Perca da conexão com a API!' },
     'prenchaLogin': { messageType: 'error', messageText: 'Prencha o login para alterar as informações!'}, 
     'loginError': { messageType: 'error', messageText: 'Usuário ou Senha inválidos!'}, 
+    'loginErrorPermissao': { messageType: 'error', messageText: 'Usuário não possui permissão!'}, 
     'alterarUser': { messageType: 'success', messageText: 'Informações de usuário alteradas com sucesso!'}, 
     'NotalterarUser': { messageType: 'error', messageText: 'Error ao alterar as informações do usuário!'}, 
     'userNotFound': { messageType: 'error', messageText: 'Error ao encontrar o usuário!'}, 
@@ -44,6 +45,7 @@ const messageMap = {
     'reclamacaoUpdateNot': { messageType: 'error', messageText: 'Error ao alterar a reclamação!'}, 
     'delete': { messageType: 'success', messageText: 'Reclamação excluida com sucesso!'}, 
     'deleteError': { messageType: 'error', messageText: 'Error ao excluir a reclamação!'}, 
+    'camposVazios': { messageType: 'error', messageText: 'Prencha todos os campos!'}, 
 };
 
 // Verifica os parâmetros de URL e exibe o alerta correspondente
