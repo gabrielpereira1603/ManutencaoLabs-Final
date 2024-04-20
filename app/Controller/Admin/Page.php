@@ -29,9 +29,9 @@ class Page {
             'label' => 'Termos De Uso',
             'link'=> URL.'/regras'
         ],
-        'configuracao'=> [
-            'label'=> 'Settings',
-            'link'=> URL.'/settings'
+        'gerenciar'=> [
+            'label'=> 'Gerenciar',
+            'link'=> URL.'/admin/gerenciar'
         ],
     ];
 
@@ -76,7 +76,7 @@ class Page {
                 case 'termosDeUso':
                     $iconClass = 'bx bx-book';
                     break;
-                case 'configuracao':
+                case 'gerenciar':
                     $iconClass = 'bx bx-cog';
                     break;
                 case 'relatorio':
