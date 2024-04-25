@@ -3,3 +3,4 @@ RewriteEngine on
 # REGRA DE REWRITE TUDO PARA INDEX
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*)$ ./index.php [QSA,NC]
+Header set Access-Control-Allow-Origin "*"
