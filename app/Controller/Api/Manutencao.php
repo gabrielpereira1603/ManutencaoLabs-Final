@@ -16,7 +16,7 @@ class Manutencao extends Api {
         while($obReclamacao = $results->fetchObject(EntityManutencao::class)){
             $itens[] = [
                 'total_manutencoes' => $obReclamacao->total_manutencoes,
-                'nome_usuario' => $obReclamacao->nome_usuario,
+                'nome' => $obReclamacao->nome_usuario,
             ];
         }
         // Retorna os usuários em formato JSON
