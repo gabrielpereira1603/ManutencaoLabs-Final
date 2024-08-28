@@ -84,13 +84,13 @@ class Manutencao {
 
     public static function ManutencaoPorUser() {
         // Monta a string para os campos que queremos selecionar
-        $fields = 'usuario.nome_usuario, COUNT(manutencao.codmanutencao) AS total_manutencoes';
+        $fields = 'usuario.nome, COUNT(manutencao.codmanutencao) AS total_manutencoes';
         
         // Monta a string para os joins das tabelas
         $join = 'INNER JOIN manutencao ON usuario.codusuario = manutencao.codusuario_fk';
         
         // Agrupa os resultados pelo código do usuário e nome do usuário
-        $groupBy = 'usuario.codusuario, usuario.nome_usuario';
+        $groupBy = 'usuario.codusuario, usuario.nome';
         
         // Chama o método select da classe Database com os parâmetros construídos
         return (new Database('usuario'))->select(null, 'total_manutencoes DESC', null, null, $fields, $join . ' GROUP BY ' . $groupBy);
@@ -102,7 +102,7 @@ class Manutencao {
             $fields = ' 
             manutencao.datahora_manutencao, 
             manutencao.descricao_manutencao, 
-            usuario_manutencao.nome_usuario AS nome_usuario_manutencao, 
+            usuario_manutencao.nome AS nome_usuario_manutencao, 
             usuario_manutencao.login AS login_manutencao, 
             usuario_manutencao.nivelacesso_fk AS nivelacesso_fk_manutencao, 
             reclamacao.status AS status_reclamacao, 
@@ -111,7 +111,7 @@ class Manutencao {
             reclamacao.descricao AS descricao_reclamacao, 
             reclamacao.datahora_reclamacao, 
             GROUP_CONCAT(componente.nome_componente) AS componentes,
-            usuario_reclamacao.nome_usuario AS nome_usuario_reclamacao, 
+            usuario_reclamacao.nome AS nome_usuario_reclamacao, 
             usuario_reclamacao.login AS login_reclamacao, 
             usuario_reclamacao.nivelacesso_fk AS nivelacesso_fk_reclamacao';
 
@@ -129,7 +129,7 @@ class Manutencao {
             $fields = '                
             manutencao.datahora_manutencao, 
             manutencao.descricao_manutencao, 
-            usuario_manutencao.nome_usuario AS nome_usuario_manutencao, 
+            usuario_manutencao.nome AS nome_usuario_manutencao, 
             usuario_manutencao.login AS login_manutencao, 
             usuario_manutencao.nivelacesso_fk AS nivelacesso_fk_manutencao, 
             reclamacao.status AS status_reclamacao, 
@@ -138,7 +138,7 @@ class Manutencao {
             reclamacao.descricao AS descricao_reclamacao, 
             reclamacao.datahora_reclamacao, 
             GROUP_CONCAT(componente.nome_componente) AS componentes,
-            usuario_reclamacao.nome_usuario AS nome_usuario_reclamacao, 
+            usuario_reclamacao.nome AS nome_usuario_reclamacao, 
             usuario_reclamacao.login AS login_reclamacao, 
             usuario_reclamacao.nivelacesso_fk AS nivelacesso_fk_reclamacao';
 
@@ -158,7 +158,7 @@ class Manutencao {
             $fields = '                
             manutencao.datahora_manutencao, 
             manutencao.descricao_manutencao, 
-            usuario_manutencao.nome_usuario AS nome_usuario_manutencao, 
+            usuario_manutencao.nome AS nome_usuario_manutencao, 
             usuario_manutencao.login AS login_manutencao, 
             usuario_manutencao.nivelacesso_fk AS nivelacesso_fk_manutencao, 
             reclamacao.status AS status_reclamacao, 
@@ -167,7 +167,7 @@ class Manutencao {
             reclamacao.descricao AS descricao_reclamacao, 
             reclamacao.datahora_reclamacao, 
             GROUP_CONCAT(componente.nome_componente) AS componentes,
-            usuario_reclamacao.nome_usuario AS nome_usuario_reclamacao, 
+            usuario_reclamacao.nome AS nome_usuario_reclamacao, 
             usuario_reclamacao.login AS login_reclamacao, 
             usuario_reclamacao.nivelacesso_fk AS nivelacesso_fk_reclamacao';
 
@@ -187,7 +187,7 @@ class Manutencao {
             $fields = '                
             manutencao.datahora_manutencao, 
             manutencao.descricao_manutencao, 
-            usuario_manutencao.nome_usuario AS nome_usuario_manutencao, 
+            usuario_manutencao.nome AS nome_usuario_manutencao, 
             usuario_manutencao.login AS login_manutencao, 
             usuario_manutencao.nivelacesso_fk AS nivelacesso_fk_manutencao, 
             reclamacao.status AS status_reclamacao, 
@@ -196,7 +196,7 @@ class Manutencao {
             reclamacao.descricao AS descricao_reclamacao, 
             reclamacao.datahora_reclamacao, 
             GROUP_CONCAT(componente.nome_componente) AS componentes,
-            usuario_reclamacao.nome_usuario AS nome_usuario_reclamacao, 
+            usuario_reclamacao.nome AS nome_usuario_reclamacao, 
             usuario_reclamacao.login AS login_reclamacao, 
             usuario_reclamacao.nivelacesso_fk AS nivelacesso_fk_reclamacao';
 
@@ -218,7 +218,7 @@ class Manutencao {
             $fields = '                
             manutencao.datahora_manutencao, 
             manutencao.descricao_manutencao, 
-            usuario_manutencao.nome_usuario AS nome_usuario_manutencao, 
+            usuario_manutencao.nome AS nome_usuario_manutencao, 
             usuario_manutencao.login AS login_manutencao, 
             usuario_manutencao.nivelacesso_fk AS nivelacesso_fk_manutencao, 
             reclamacao.status AS status_reclamacao, 
@@ -227,7 +227,7 @@ class Manutencao {
             reclamacao.descricao AS descricao_reclamacao, 
             reclamacao.datahora_reclamacao, 
             GROUP_CONCAT(componente.nome_componente) AS componentes,
-            usuario_reclamacao.nome_usuario AS nome_usuario_reclamacao, 
+            usuario_reclamacao.nome AS nome_usuario_reclamacao, 
             usuario_reclamacao.login AS login_reclamacao, 
             usuario_reclamacao.nivelacesso_fk AS nivelacesso_fk_reclamacao';
 
